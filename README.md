@@ -108,7 +108,10 @@ cloudflared tunnel --url http://localhost:3000
 ## 関連リポジトリ
 
 - Amica fork: https://github.com/nftdrive01-maker/amica-nftdrive
+- Amica fork の既定運用ブランチ: feat-add-injection
 - Style-Bert-VITS2 fork: https://github.com/nftdrive01-maker/Style-Bert-VITS2-nftdrive
+
+このリポジトリの Compose は `../amica` のローカル checkout を bind mount するため、実際に参照される内容は GitHub の `master` ではなくローカルで checkout しているブランチです。NFTDrive 運用では `feat-add-injection` を前提にしています。
 
 ## ライセンスと利用条件
 
