@@ -1,0 +1,32 @@
+services:
+  amica:
+    build:
+      context: ../amica
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+
+  injection-tool:
+    build:
+      context: ../injection-tool
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+      INJECTION_ADMIN_USERNAME: ${INJECTION_ADMIN_USERNAME:-}
+      INJECTION_ADMIN_PASSWORD: ${INJECTION_ADMIN_PASSWORD:-}
+      INJECTION_SESSION_SECRET: ${INJECTION_SESSION_SECRET:-}
+    volumes:
+      - ../injection-tool/data:/app/data
+
+  mcp-server:
+    build:
+      context: ../mcp-server
+      dockerfile: Dockerfile
+
+  sbv2:
+    build:
+      context: ../sbv2/Style-Bert-VITS2
+      dockerfile: Dockerfile.cpu
+    volumes:
+      - ../sbv2/Style-Bert-VITS2/model_assets:/app/model_assets
+      - ../sbv2/Style-Bert-VITS2/Data:/app/Data

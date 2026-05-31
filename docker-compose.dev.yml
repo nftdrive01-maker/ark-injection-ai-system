@@ -1,0 +1,100 @@
+services:
+  amica:
+    image: node:20-alpine
+    working_dir: /app
+    command:
+      - sh
+      - -c
+      - |
+        LOCKFILE_HASH_FILE=node_modules/.package-lock.sha256
+        CURRENT_HASH="$$(sha256sum package-lock.json | awk '{print $$1}')"
+        STORED_HASH="$$(cat "$$LOCKFILE_HASH_FILE" 2>/dev/null || true)"
+        if [ ! -d node_modules ] || [ -z "$$(ls -A node_modules 2>/dev/null)" ] || [ "$$CURRENT_HASH" != "$$STORED_HASH" ]; then
+          npm ci
+          printf "%s" "$$CURRENT_HASH" > "$$LOCKFILE_HASH_FILE"
+        fi
+        npm run dev -- --hostname 0.0.0.0 --port 3000
+    environment:
+      NODE_ENV: development
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ../amica:/app
+      - amica_node_modules:/app/node_modules
+
+  injection-tool:
+    image: node:20-alpine
+    working_dir: /app
+    command:
+      - sh
+      - -c
+      - |
+        LOCKFILE_HASH_FILE=node_modules/.package-lock.sha256
+        CURRENT_HASH="$$(sha256sum package-lock.json | awk '{print $$1}')"
+        STORED_HASH="$$(cat "$$LOCKFILE_HASH_FILE" 2>/dev/null || true)"
+        if [ ! -d node_modules ] || [ -z "$$(ls -A node_modules 2>/dev/null)" ] || [ "$$CURRENT_HASH" != "$$STORED_HASH" ]; then
+          npm ci
+          printf "%s" "$$CURRENT_HASH" > "$$LOCKFILE_HASH_FILE"
+        fi
+        npm run dev -- --hostname 0.0.0.0
+    environment:
+      NODE_ENV: development
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+      INJECTION_ADMIN_USERNAME: ${INJECTION_ADMIN_USERNAME:-}
+      INJECTION_ADMIN_PASSWORD: ${INJECTION_ADMIN_PASSWORD:-}
+      INJECTION_SESSION_SECRET: ${INJECTION_SESSION_SECRET:-}
+    volumes:
+      - ../injection-tool:/app
+      - injection_tool_node_modules:/app/node_modules
+
+  mcp-server:
+    build:
+      context: ../mcp-server
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: python server.py
+    volumes:
+      - ../mcp-server:/app
+
+  sbv2:
+    image: ark-injection-ai-system-sbv2
+    build:
+      context: ../sbv2/Style-Bert-VITS2
+      dockerfile: Dockerfile.infer
+    working_dir: /app
+    volumes:
+      - ../sbv2/Style-Bert-VITS2/model_assets:/app/model_assets
+      - ../sbv2/Style-Bert-VITS2/bert:/app/bert
+      - ../sbv2/Style-Bert-VITS2/Data:/app/Data
+
+  database:
+    image: postgres:15-alpine
+
+  dbhub:
+    image: bytebase/dbhub:latest
+
+  google-workspace-mcp:
+    entrypoint:
+      - sh
+      - -c
+    working_dir: /app
+    command:
+      - uv sync --frozen --no-dev --extra disk && uv run main.py --transport streamable-http
+    volumes:
+      - ../google-workspace-mcp:/app
+      - ./google-workspace-mcp-credentials:/app/credentials
+
+  estat-mcp:
+    entrypoint:
+      - sh
+      - -c
+    working_dir: /app
+    command:
+      - pip install --no-cache-dir -e . && estat-mcp serve --transport sse --host 0.0.0.0 --port 8000
+    volumes:
+      - ../estat-mcp:/app
+
+volumes:
+  amica_node_modules:
+  injection_tool_node_modules:

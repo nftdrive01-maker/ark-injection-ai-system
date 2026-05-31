@@ -1,0 +1,4 @@
+:443 {
+  tls /certs/amica-local.pem /certs/amica-local-key.pem
+  reverse_proxy amica:3000
+}

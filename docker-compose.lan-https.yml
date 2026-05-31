@@ -1,0 +1,14 @@
+services:
+  amica-https:
+    container_name: ark-amica-https
+    image: caddy:2-alpine
+    depends_on:
+      - amica
+    ports:
+      - "${AMICA_HTTPS_STD_PORT:-443}:443"
+      - "${AMICA_HTTPS_PORT:-3443}:443"
+    volumes:
+      - ./Caddyfile.lan:/etc/caddy/Caddyfile:ro
+      - ./.certs:/certs:ro
+    networks:
+      - ark-network

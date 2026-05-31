@@ -1,0 +1,44 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Local certificates and credentials
+.certs/
+google-workspace-mcp-credentials/
+*.pem
+*.key
+*.crt
+*.p12
+
+# Logs and temporary files
+*.log
+temp_*.txt
+response.json
+
+# Node / Next.js
+node_modules/
+.next/
+.turbo/
+dist/
+build/
+
+# Python caches and virtual environments
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Database and local state
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/settings.json
