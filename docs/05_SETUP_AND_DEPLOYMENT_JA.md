@@ -48,6 +48,19 @@ compose からは `../amica`（amica-nftdrive のローカル配置先）や `..
    - `DB_NAME`
 3. 公開運用をする場合は `CLOUDFLARE_EXTERNAL_URL` を後から設定する
 
+GitHub 管理外で別途用意が必要なもの:
+
+- `.env` に設定する秘密情報
+   - Google OAuth client ID / secret
+   - injection-tool 管理者アカウント
+   - OpenAI などの API キー
+   - `ESTAT_APP_ID`
+- `ark-injection-ai-system/google-workspace-mcp-credentials` に保存する Google Workspace の credential / token
+- `../sbv2/Style-Bert-VITS2/model_assets` と `../sbv2/Style-Bert-VITS2/bert`
+- `../piper/data` に保持される Piper モデル
+
+コードは GitHub から取得できますが、上記は機密情報または大型モデル資産のため、別の配布経路か手動配置を前提にしてください。
+
 Amica を中央集権的に運用する場合の基本方針:
 
 - テキスト会話は `AMICA_OLLAMA_URL` と `AMICA_OLLAMA_MODEL` で固定する
@@ -155,6 +168,8 @@ cloudflared tunnel --url http://localhost:3000
 - リダイレクト URI の整備
 - `google-workspace-mcp-credentials` ディレクトリの永続化
 
+この `google-workspace-mcp-credentials` は GitHub に含めず、環境ごとに安全な方法で配布・保管してください。
+
 Cloudflare 経由で公開する場合は callback URL も外部 URL に合わせて更新してください。
 
 ## e-Stat の有効化
@@ -166,6 +181,12 @@ ESTAT_APP_ID=your_app_id
 ```
 
 起動後、`estat-mcp` は `estat-mcp serve --transport sse --host 0.0.0.0 --port 8000` として動作します。
+
+## 音声モデル資産
+
+SBV2 は `../sbv2/Style-Bert-VITS2/model_assets` と `../sbv2/Style-Bert-VITS2/bert` を参照します。これらは GitHub だけでは揃わないため、初回セットアップ時にモデル取得または手動配置が必要です。
+
+Piper は `../piper/data` をモデル保存先として使い、初回起動時に `.env` の `PIPER_MODEL_URL` と `PIPER_CONFIG_URL` から取得します。ネットワーク制限がある環境では、事前配置かミラー URL の用意を検討してください。
 
 ## 起動確認
 

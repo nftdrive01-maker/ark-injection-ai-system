@@ -118,6 +118,23 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 
 `google-workspace-mcp` を使う場合は、`ark-injection-ai-system/google-workspace-mcp-credentials` に OAuth credential を配置してください。
 
+### 6. GitHub 管理外で別途必要なもの
+
+リポジトリ一式は GitHub から取得できますが、以下は公開リポジトリに含めず別管理してください。
+
+- `.env` に入れる秘密情報
+	- `GOOGLE_OAUTH_CLIENT_ID`
+	- `GOOGLE_OAUTH_CLIENT_SECRET`
+	- `INJECTION_ADMIN_USERNAME`
+	- `INJECTION_ADMIN_PASSWORD`
+	- `INJECTION_SESSION_SECRET`
+	- `AMICA_OPENAI_APIKEY` や `ESTAT_APP_ID` などの外部 API キー
+- `ark-injection-ai-system/google-workspace-mcp-credentials/` に配置する OAuth credential / token 類
+- `../sbv2/Style-Bert-VITS2/model_assets` と `../sbv2/Style-Bert-VITS2/bert` に配置される SBV2 推論用モデル資産
+- `../piper/data` に初回起動時ダウンロードまたは事前配置される Piper モデル実体
+
+つまり、GitHub から取得できるのはコードと Compose 構成です。認証情報、永続 credential、音声モデル資産は別途用意が必要です。
+
 ## 外部公開
 
 フロントアプリの一時公開には Cloudflare Quick Tunnel を使えます。
