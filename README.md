@@ -48,6 +48,7 @@ flowchart LR
 		I --> P
 ```
 
+
 ## Screenshots
 
 | Amica UI | Domain / Knowledge Admin |
