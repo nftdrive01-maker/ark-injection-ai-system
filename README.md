@@ -92,9 +92,9 @@ docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 - `../injection-tool` : https://github.com/nftdrive01-maker/ark-injection-tool
 - `../mcp-server` : https://github.com/nftdrive01-maker/ark-mcp-server
 - `../sbv2/Style-Bert-VITS2` : https://github.com/nftdrive01-maker/Style-Bert-VITS2-nftdrive
-- `../google-workspace-mcp` : Google Workspace MCP 用ローカル配置
-- `../estat-mcp` : e-Stat MCP 用ローカル配置
-- `../piper` : Piper モデル/出力用ローカル配置
+- `../google-workspace-mcp` : https://github.com/nftdrive01-maker/google_workspace_mcp-nftdrive
+- `../estat-mcp` : https://github.com/nftdrive01-maker/estat-mcp-nftdrive
+- `../piper` : https://github.com/nftdrive01-maker/piper-nftdrive
 
 推奨配置例:
 
@@ -146,6 +146,9 @@ cloudflared tunnel --url http://localhost:3000
 - Amica fork の既定運用ブランチ: feat-add-injection
 - injection-tool fork: https://github.com/nftdrive01-maker/ark-injection-tool
 - mcp-server fork: https://github.com/nftdrive01-maker/ark-mcp-server
+- google-workspace-mcp fork: https://github.com/nftdrive01-maker/google_workspace_mcp-nftdrive
+- estat-mcp fork: https://github.com/nftdrive01-maker/estat-mcp-nftdrive
+- piper fork: https://github.com/nftdrive01-maker/piper-nftdrive
 - Style-Bert-VITS2 fork: https://github.com/nftdrive01-maker/Style-Bert-VITS2-nftdrive
 
 このリポジトリの Compose は `../amica` のローカル checkout を bind mount するため、実際に参照される内容は GitHub の `master` ではなくローカルで checkout しているブランチです。NFTDrive 運用では `feat-add-injection` を前提にしています。
