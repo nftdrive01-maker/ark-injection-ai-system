@@ -182,6 +182,7 @@ cloudflared tunnel --url http://localhost:3000
 - [docs/01_SYSTEM_OVERVIEW_JA.md](docs/01_SYSTEM_OVERVIEW_JA.md)
 - [docs/05_SETUP_AND_DEPLOYMENT_JA.md](docs/05_SETUP_AND_DEPLOYMENT_JA.md)
 - [docs/06_SECURITY_AND_PUBLIC_EXPOSURE_JA.md](docs/06_SECURITY_AND_PUBLIC_EXPOSURE_JA.md)
+- [docs/16_MODEL_SWITCH_MANUAL_JA.md](docs/16_MODEL_SWITCH_MANUAL_JA.md)
 - [docs/README_JA.md](docs/README_JA.md)
 
 ## Related Repositories

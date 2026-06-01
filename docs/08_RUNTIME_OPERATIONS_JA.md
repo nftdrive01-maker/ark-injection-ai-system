@@ -117,6 +117,7 @@ docker logs ark-estat-mcp --tail 200
 - URL 変更時は OAuth callback と関連設定を更新する
 
 ### 5. Amica の Ollama モデル差し替え
+- 会話モデル、画像認識モデル、Piper 音声モデルの切り替え手順は [16_MODEL_SWITCH_MANUAL_JA.md](./16_MODEL_SWITCH_MANUAL_JA.md) を参照
 - テキスト会話モデルを変える場合は `.env` の `AMICA_OLLAMA_MODEL` を更新する
 - 画像認識モデルを変える場合は `.env` の `AMICA_VISION_OLLAMA_MODEL` を更新する
 - テキスト会話と画像認識で接続先を分ける場合は `AMICA_OLLAMA_URL` と `AMICA_VISION_OLLAMA_URL` を個別に更新する
@@ -132,6 +133,7 @@ docker exec ark-amica printenv NEXT_PUBLIC_OLLAMA_MODEL NEXT_PUBLIC_VISION_OLLAM
 - `AMICA_MANAGED_CONFIG_KEYS` に含めた設定はブラウザ UI から変更できません
 - `AMICA_HIDDEN_SETTINGS_PAGES` に `vision` や `chatbot` を含めると設定ページ自体が表示されません
 - UI から変更できないのは正常動作であり、`.env` 側を更新するのが正しい運用です
+- モデル切り替え時の確認順や Piper 例は [16_MODEL_SWITCH_MANUAL_JA.md](./16_MODEL_SWITCH_MANUAL_JA.md) に集約しています
 
 ### 6. Amica の設定一括管理状態を確認する
 - `docker compose config` で `NEXT_PUBLIC_MANAGED_CONFIG_KEYS` と `NEXT_PUBLIC_HIDDEN_SETTINGS_PAGES` の展開結果を見る
