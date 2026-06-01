@@ -1,0 +1,27 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="100" x2="1460" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#082F49"/>
+      <stop offset="0.52" stop-color="#0369A1"/>
+      <stop offset="1" stop-color="#10B981"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" rx="40" fill="url(#bg)"/>
+  <rect x="120" y="96" width="1360" height="708" rx="30" fill="#F8FAFC"/>
+  <rect x="120" y="96" width="1360" height="68" rx="30" fill="#0F172A"/>
+  <rect x="172" y="220" width="1256" height="120" rx="24" fill="#E0F2FE"/>
+  <rect x="214" y="258" width="300" height="20" rx="10" fill="#0F172A" fill-opacity="0.9"/>
+  <rect x="214" y="294" width="540" height="14" rx="7" fill="#475569" fill-opacity="0.42"/>
+  <rect x="172" y="376" width="618" height="356" rx="24" fill="#FFFFFF"/>
+  <rect x="214" y="420" width="220" height="18" rx="9" fill="#0F172A" fill-opacity="0.88"/>
+  <rect x="214" y="462" width="526" height="52" rx="16" fill="#DBEAFE"/>
+  <rect x="214" y="540" width="526" height="52" rx="16" fill="#DCFCE7"/>
+  <rect x="214" y="618" width="526" height="52" rx="16" fill="#EDE9FE"/>
+  <rect x="822" y="376" width="606" height="356" rx="24" fill="#F8FAFC"/>
+  <rect x="860" y="418" width="210" height="18" rx="9" fill="#0F172A" fill-opacity="0.88"/>
+  <rect x="860" y="458" width="520" height="16" rx="8" fill="#64748B" fill-opacity="0.28"/>
+  <rect x="860" y="500" width="520" height="16" rx="8" fill="#64748B" fill-opacity="0.28"/>
+  <rect x="860" y="542" width="520" height="16" rx="8" fill="#64748B" fill-opacity="0.28"/>
+  <rect x="860" y="610" width="230" height="46" rx="16" fill="#0EA5E9"/>
+  <text x="800" y="790" text-anchor="middle" fill="#E2E8F0" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">Replace with publish settings or MCP screenshot</text>
+</svg>

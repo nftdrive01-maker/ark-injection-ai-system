@@ -1,69 +1,91 @@
 # ark-injection-ai-system
 
+<p align="center">
+	<a href="https://nftdrive.net/"><img alt="Maintained by NFTDrive" src="https://img.shields.io/badge/Maintained%20by-NFTDrive-0f172a?style=for-the-badge"></a>
+	<img alt="Docker Compose" src="https://img.shields.io/badge/Docker%20Compose-Orchestrated-2563eb?style=for-the-badge">
+	<img alt="Multi-domain AI" src="https://img.shields.io/badge/Multi--Domain-AI%20System-14b8a6?style=for-the-badge">
+	<img alt="Voice and MCP" src="https://img.shields.io/badge/Voice%20%2B%20MCP-Integrated-f97316?style=for-the-badge">
+</p>
+
+<p align="center">
+	Ark-i / Amica / injection-tool / MCP servers / TTS services を束ねて動かす、<br>
+	ドメイン注入型 AI システムの統合実行環境。
+</p>
+
+<p align="center">
+	<img src="docs/images/readme/hero-lp.png" alt="Ark-i landing page" width="100%">
+</p>
+
 English summary:
 
-ark-injection-ai-system is a Docker Compose-based orchestration layer for Ark-i, Amica, injection-tool, MCP servers, TTS services, and supporting infrastructure. It is designed for domain-injected AI deployments that combine chat UI, knowledge injection, external tool integration, voice synthesis, and controlled public exposure.
-
-Key points:
-
-- Multi-domain AI system with switchable knowledge, UI, voice, and external integrations
-- Includes Amica, injection-tool, MCP servers, PostgreSQL, DBHub, and TTS services
-- Supports local operation, PoC environments, and Cloudflare-based external publishing
-- Source modification is allowed
-- Free for individual use
-- Paid license required for corporate, organizational, governmental, or commercial use
-
-License and usage terms:
-
-- Personal use: free
-- Code modification: allowed
-- Corporate or commercial use: paid license required
-- See [LICENSE.md](LICENSE.md) for details
-
-Ark-i / Amica / injection-tool / MCP サーバー群をまとめて動かす、ドメイン注入型 AI システムの統合実行環境です。
-
-このリポジトリは、会話 UI、知識注入管理、MCP 連携、音声合成、データベース、公開設定を Docker Compose ベースでまとめて起動し、PoC から業務導入までを同じ構成思想で扱えるようにするためのオーケストレーション層です。
+ark-injection-ai-system is a Docker Compose-based orchestration layer for Ark-i, Amica, injection-tool, MCP servers, TTS services, and supporting infrastructure. It is built for domain-injected AI deployments that combine chat UI, knowledge injection, external tools, voice synthesis, and controlled public exposure in one operational stack.
 
 運営会社: [NFTDrive](https://nftdrive.net/)
 
-## 主な特徴
+## Why This Repo
 
-- ドメインごとに知識、UI、音声、外部連携を切り替え可能
-- Amica と injection-tool を分離した運用しやすい構成
-- Google Workspace、e-Stat、DBHub などを MCP 経由で統合可能
-- Piper / Style-Bert-VITS2-nftdrive などの音声合成に対応
-- Cloudflare Tunnel や LAN HTTPS による外部公開に対応
+- ドメインごとに知識、UI、音声、外部連携を切り替えられる
+- 会話 UI と管理 UI を分離し、運用しやすい構成で扱える
+- Google Workspace、e-Stat、DBHub などを MCP 経由で統合できる
+- Piper / Style-Bert-VITS2 などの音声合成を同じ Compose で束ねられる
+- ローカル検証、PoC、本番公開まで同じ構成思想で持っていける
 
-## 構成サービス
+## System Snapshot
+
+```mermaid
+flowchart LR
+		U[User] --> A[Amica<br/>Chat UI / Voice UI]
+		O[Operator] --> I[injection-tool<br/>Knowledge / Publish Settings]
+		A --> C[Chat Backend / Domain Logic]
+		I --> C
+		C --> M1[mcp-server]
+		C --> M2[google-workspace-mcp]
+		C --> M3[estat-mcp]
+		C --> DB[(PostgreSQL / DBHub)]
+		C --> T1[Style-Bert-VITS2]
+		C --> T2[Piper]
+		A --> P[Cloudflare / LAN HTTPS]
+		I --> P
+```
+
+## Screenshots
+
+| Amica UI | Domain / Knowledge Admin |
+| --- | --- |
+| ![Amica UI](docs/images/readme/amica-ui.png) | ![Domain and knowledge admin](docs/images/readme/admin-knowledge.png) |
+
+スクリーンショット差し替えルールと追加候補は [docs/images/readme/README.md](docs/images/readme/README.md) にまとめています。
+
+## Core Services
 
 | サービス | 役割 | 既定ポート |
 | --- | --- | ---: |
 | Amica | ユーザー向け会話 UI | 3000 |
 | injection-tool | 知識注入、管理画面、公開設定 API | 4001 |
-| mcp-server | 汎用 MCP ルーター/検証用サーバー | 8000 |
+| mcp-server | 汎用 MCP ルーター / 検証用サーバー | 8000 |
 | google-workspace-mcp | Google Workspace 連携 | 8001 |
 | estat-mcp | e-Stat 連携 | 8002 |
 | SBV2 / Piper | 音声合成 | 5000 / 5001 |
 | PostgreSQL | 永続データ保存 | 5432 |
 | DBHub | DB ゲートウェイ | 8080 |
 
-## クイックスタート
+## Quick Start
 
-### 1. 前提
+### 1. Prerequisites
 
 - Docker Desktop
 - Docker Compose
 - 必要に応じて Ollama または OpenAI 互換 API
 
-### 2. 環境変数を用意
+### 2. Prepare `.env`
 
-`.env.example` を `.env` にコピーし、必要な値を設定します。
+`.env.example` を `.env` にコピーして必要な値を設定します。
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-最低限、以下を自分の環境に合わせて見直してください。
+最低限の見直し対象:
 
 - `AMICA_CHATBOT_BACKEND`
 - `AMICA_OLLAMA_URL`
@@ -74,7 +96,7 @@ Copy-Item .env.example .env
 - `GOOGLE_OAUTH_CLIENT_ID`
 - `GOOGLE_OAUTH_CLIENT_SECRET`
 
-### 3. 開発起動
+### 3. Start Development Stack
 
 ```powershell
 docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
@@ -85,7 +107,7 @@ docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 - Amica: http://localhost:3000
 - injection-tool: http://localhost:4001
 
-### 4. 本番起動に必要な関連リポジトリ
+### 4. Production-Like Layout
 
 `docker-compose.prod.yml` は公開イメージ参照ではなく、相対パスの build context / volume を使います。  
 そのため、本番相当の別環境で起動する場合も、少なくとも以下のリポジトリやローカル配置が必要です。
@@ -112,7 +134,7 @@ workspace/
 	piper/
 ```
 
-### 5. 本番起動
+### 5. Start Production Stack
 
 ```powershell
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
@@ -120,7 +142,7 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 
 `google-workspace-mcp` を使う場合は、`ark-injection-ai-system/google-workspace-mcp-credentials` に OAuth credential を配置してください。
 
-### 6. GitHub 管理外で別途必要なもの
+## GitHub 管理外で別途必要なもの
 
 リポジトリ一式は GitHub から取得できますが、以下は公開リポジトリに含めず別管理してください。
 
@@ -135,9 +157,9 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 - `../sbv2/Style-Bert-VITS2/model_assets` と `../sbv2/Style-Bert-VITS2/bert` に配置される SBV2 推論用モデル資産
 - `../piper/data` に初回起動時ダウンロードまたは事前配置される Piper モデル実体
 
-つまり、GitHub から取得できるのはコードと Compose 構成です。認証情報、永続 credential、音声モデル資産は別途用意が必要です。
+GitHub から取得できるのはコードと Compose 構成です。認証情報、永続 credential、音声モデル資産は別途用意が必要です。
 
-## 外部公開
+## External Publishing
 
 フロントアプリの一時公開には Cloudflare Quick Tunnel を使えます。
 
@@ -152,14 +174,14 @@ cloudflared tunnel --url http://localhost:3000
 - [EXTERNAL_PUBLISH_MANUAL_JA.md](EXTERNAL_PUBLISH_MANUAL_JA.md)
 - [docs/13_CLOUDFLARE_ACCESS_SETUP_JA.md](docs/13_CLOUDFLARE_ACCESS_SETUP_JA.md)
 
-## ドキュメント
+## Documentation
 
 - [docs/01_SYSTEM_OVERVIEW_JA.md](docs/01_SYSTEM_OVERVIEW_JA.md)
 - [docs/05_SETUP_AND_DEPLOYMENT_JA.md](docs/05_SETUP_AND_DEPLOYMENT_JA.md)
 - [docs/06_SECURITY_AND_PUBLIC_EXPOSURE_JA.md](docs/06_SECURITY_AND_PUBLIC_EXPOSURE_JA.md)
 - [docs/README_JA.md](docs/README_JA.md)
 
-## 関連リポジトリ
+## Related Repositories
 
 - Amica fork: https://github.com/nftdrive01-maker/amica-nftdrive
 - Amica fork の既定運用ブランチ: feat-add-injection
@@ -172,18 +194,17 @@ cloudflared tunnel --url http://localhost:3000
 
 このリポジトリの Compose は `../amica` のローカル checkout を bind mount するため、実際に参照される内容は GitHub の `master` ではなくローカルで checkout しているブランチです。NFTDrive 運用では `feat-add-injection` を前提にしています。
 
-## ライセンスと利用条件
+## License and Usage
 
-このリポジトリのコードは改変可能です。
-
-- 個人利用は無料です
-- 法人、団体、行政、商用利用は有償ライセンスの対象です
-- 詳細は [LICENSE.md](LICENSE.md) を参照してください
-- OSS ライセンス案内は [OPEN_SOURCE_NOTICES.md](OPEN_SOURCE_NOTICES.md) を参照してください
+- 個人利用は無料
+- コード改変は可能
+- 法人、団体、行政、商用利用は有償ライセンス対象
+- 詳細は [LICENSE.md](LICENSE.md)
+- OSS ライセンス案内は [OPEN_SOURCE_NOTICES.md](OPEN_SOURCE_NOTICES.md)
 
 商用利用や導入相談は NFTDrive までお問い合わせください。
 
-## 注意事項
+## Notes
 
 - `.env`、OAuth credential、ローカル証明書、各種ログは公開リポジトリに含めないでください
 - Quick Tunnel は URL が毎回変わるため、本番運用には向きません
