@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-	<img src="docs/images/readme/hero-lp.png" alt="Ark-i landing page" width="100%">
+	<img src="docs/images/readme/hero-lp1.png" alt="Ark-i landing page" width="100%">
 </p>
 
 English summary:
