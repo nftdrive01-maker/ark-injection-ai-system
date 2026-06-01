@@ -39,6 +39,8 @@ A separate commercial license agreement with NFTDrive is required for:
 * Consulting or contract work
 * Revenue-generating activities
 
+For the avoidance of doubt, provision to customers, use in commissioned work, or use in connection with business activities is deemed commercial use under this license.
+
 ---
 
 ## 4. Redistribution
@@ -76,3 +78,13 @@ https://nftdrive.net
 This license is a source-available license.
 
 It does not meet the Open Source Definition (OSD) and should not be described as an open source license.
+
+---
+
+## 9. Third-Party Software
+
+This software may interoperate with, depend on, or make use of software, models, datasets, voices, fonts, or other materials provided by third parties.
+
+All rights in such third-party components remain with their respective rights holders, and this license does not grant any license to third-party intellectual property.
+
+Use of third-party components is subject to the applicable licenses, terms of use, and other conditions imposed by their respective rights holders.
