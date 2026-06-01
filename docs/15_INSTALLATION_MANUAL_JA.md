@@ -64,6 +64,7 @@ AMICA_TTS_BACKEND=piper
 補足:
 - SBV2 の接続先は Compose 内で常に `http://sbv2:5000` です
 - host モードは廃止済みです
+- 音声モデル、アバター画像、Live2D / VRM などのキャラクター素材は別途用意が必要です
 
 ## 4. CPU での初回起動
 
@@ -86,6 +87,7 @@ cd D:\ark-injection-ai-system
 補足:
 - `sbv2-init` は初回に BERT とデフォルト推論モデルを取得します
 - 初回は数分かかることがあります
+- Piper の音声モデルや表示用素材は公開リポジトリに含まれないため、必要に応じて別途配置してください
 
 ## 5. GPU 利用前の事前確認
 
@@ -220,4 +222,5 @@ cd D:\ark-injection-ai-system
 - [08_RUNTIME_OPERATIONS_JA.md](./08_RUNTIME_OPERATIONS_JA.md)
 - [09_TROUBLESHOOTING_JA.md](./09_TROUBLESHOOTING_JA.md)
 - [10_CONFIGURATION_REFERENCE_JA.md](./10_CONFIGURATION_REFERENCE_JA.md)
+- [16_MODEL_SWITCH_MANUAL_JA.md](./16_MODEL_SWITCH_MANUAL_JA.md)
 - [SBV2_CPU_CUDA_SWITCH_MANUAL_JA.md](../SBV2_CPU_CUDA_SWITCH_MANUAL_JA.md)

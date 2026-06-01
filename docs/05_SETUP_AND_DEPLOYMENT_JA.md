@@ -58,8 +58,9 @@ GitHub 管理外で別途用意が必要なもの:
 - `ark-injection-ai-system/google-workspace-mcp-credentials` に保存する Google Workspace の credential / token
 - `../sbv2/Style-Bert-VITS2/model_assets` と `../sbv2/Style-Bert-VITS2/bert`
 - `../piper/data` に保持される Piper モデル
+- アバター画像、Live2D などのキャラクター素材やキャラクターモデル
 
-コードは GitHub から取得できますが、上記は機密情報または大型モデル資産のため、別の配布経路か手動配置を前提にしてください。
+コードは GitHub から取得できますが、上記は機密情報、モデル資産、または表示素材のため、別の配布経路か手動配置を前提にしてください。
 
 Amica を中央集権的に運用する場合の基本方針:
 
@@ -187,6 +188,10 @@ ESTAT_APP_ID=your_app_id
 SBV2 は `../sbv2/Style-Bert-VITS2/model_assets` と `../sbv2/Style-Bert-VITS2/bert` を参照します。これらは GitHub だけでは揃わないため、初回セットアップ時にモデル取得または手動配置が必要です。
 
 Piper は `../piper/data` をモデル保存先として使い、初回起動時に `.env` の `PIPER_MODEL_URL` と `PIPER_CONFIG_URL` から取得します。ネットワーク制限がある環境では、事前配置かミラー URL の用意を検討してください。
+
+アバター画像、Live2D、VRM などの表示素材やキャラクターモデルも、このリポジトリでは配布しません。公開や商用利用を行う場合は、採用する素材ごとの利用条件を確認したうえで別途用意してください。
+
+モデル切り替え手順は [16_MODEL_SWITCH_MANUAL_JA.md](./16_MODEL_SWITCH_MANUAL_JA.md) を参照してください。
 
 ## 起動確認
 

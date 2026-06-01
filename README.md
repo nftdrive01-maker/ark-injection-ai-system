@@ -157,10 +157,11 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 - `ark-injection-ai-system/google-workspace-mcp-credentials/` に配置する OAuth credential / token 類
 - `../sbv2/Style-Bert-VITS2/model_assets` と `../sbv2/Style-Bert-VITS2/bert` に配置される SBV2 推論用モデル資産
 - `../piper/data` に初回起動時ダウンロードまたは事前配置される Piper モデル実体
+- アバター画像、Live2D などのキャラクター素材やキャラクターモデル
 
-GitHub から取得できるのはコードと Compose 構成です。認証情報、永続 credential、音声モデル資産は別途用意が必要です。
+GitHub から取得できるのはコードと Compose 構成です。認証情報、永続 credential、音声モデル資産、アバター素材、キャラクターモデルは別途用意が必要です。
 
-このリポジトリでは音声モデル実体は配布しません。Piper / Style-Bert-VITS2 の各モデルは、利用者がライセンスを確認のうえ別途取得・配置してください。
+このリポジトリでは音声モデル実体やキャラクター素材を配布しません。Piper / Style-Bert-VITS2 の各モデル、アバター素材、キャラクターモデルは、利用者が権利関係を確認のうえ別途取得・配置してください。
 
 ## External Publishing
 
@@ -203,6 +204,8 @@ cloudflared tunnel --url http://localhost:3000
 - 個人利用は無料
 - コード改変は可能
 - 法人、団体、行政、商用利用は有償ライセンス対象
+- アバター音声、音声モデル、キャラクターモデル、各種素材は基本的に利用者が別途用意してください
+- 各素材やモデルの利用条件、クレジット表記、商用利用可否は採用元の規約に従ってください
 - 詳細は [LICENSE.md](LICENSE.md)
 - OSS ライセンス案内は [OPEN_SOURCE_NOTICES.md](OPEN_SOURCE_NOTICES.md)
 
@@ -210,9 +213,9 @@ cloudflared tunnel --url http://localhost:3000
 
 ## Runtime Model Configuration
 
-このリポジトリは会話モデル、画像認識モデル、音声モデルの実体を配布しません。
+このリポジトリは会話モデル、画像認識モデル、音声モデルの実体に加えて、アバター素材やキャラクターモデルも配布しません。
 
-Ark-i / Amica / Piper / Style-Bert-VITS2 の各ランタイムは Docker Compose で接続できるようにしていますが、実際に利用するモデルは運用者が別途選定し、ライセンス確認のうえ設定してください。
+Ark-i / Amica / Piper / Style-Bert-VITS2 の各ランタイムは Docker Compose で接続できるようにしていますが、実際に利用するモデルや素材は運用者が別途選定し、ライセンス確認のうえ設定してください。
 
 | 用途 | 主な設定項目 | 備考 |
 | --- | --- | --- |
@@ -220,22 +223,18 @@ Ark-i / Amica / Piper / Style-Bert-VITS2 の各ランタイムは Docker Compose
 | 画像認識 | `AMICA_VISION_BACKEND`, `AMICA_VISION_OLLAMA_MODEL` | 利用モデルのライセンスは各配布元に従います |
 | 音声合成 | `AMICA_TTS_BACKEND`, `PIPER_MODEL_URL`, `PIPER_CONFIG_URL` | 音声モデルのライセンスはランタイム本体と別です |
 
-公開リポジトリの既定値では、特定の音声モデル実体や学習済みモデルを配布しません。Piper / Style-Bert-VITS2 の音声モデルは、利用者が別途取得・配置してください。
+公開リポジトリの既定値では、特定の音声モデル実体、学習済みモデル、アバター素材、キャラクターモデルを配布しません。Piper / Style-Bert-VITS2 の音声モデルや表示用素材は、利用者が別途取得・配置してください。
 
 ## Voice Model License Notes
 
 音声モデルのクレジット表記や利用条件は、採用するモデルごとに異なります。このリポジトリは特定の音声モデル実体を配布しません。
 
-以下は、つくよみちゃんコーパス由来モデルを採用する場合の参考クレジット例です。
-
-> 本ソフトウェアの音声合成には、フリー素材キャラクター「つくよみちゃん」（© Rei Yumesaki）が無料公開している音声データを使用しています。
->
-> ■つくよみちゃんコーパス（CV.夢前黎） https://tyc.rei-yumesaki.net/material/corpus/
+公開 README としての基本方針は、音声モデルやキャラクター素材を同梱せず、利用者が自分の利用条件に合うものを別途用意することです。
 
 補足:
 
 - 有料提供時や公開配布時の条件は、採用する音声モデルの配布元規約を確認してください。
-- つくよみちゃんコーパス由来モデルでは、クレジット表示や公開形態に関する条件があります。
+- キャラクター音声やコーパス由来モデルでは、クレジット表示や公開形態に関する条件が個別に設定されている場合があります。
 - Style-Bert-VITS2 のコードライセンスと、`model_assets` 配下の学習済み音声モデルの条件は別です。
 
 ## Notes

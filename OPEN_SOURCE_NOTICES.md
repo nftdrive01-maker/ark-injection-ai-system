@@ -62,6 +62,7 @@ Operators are responsible for selecting, obtaining, and configuring the models u
 - text chat
 - vision
 - speech synthesis
+- avatar presentation
 
 Those models may be subject to separate licenses, terms of use, attribution requirements, export restrictions, or redistribution limits set by their respective providers.
 
@@ -74,20 +75,13 @@ Before redistribution or commercial deployment, confirm the license of:
 - downloaded voice models
 - model weights
 - avatar assets
+- character models
 - fonts
 - images and media
 
-This repository does not treat any particular third-party voice model as a bundled default distribution artifact. If an operator configures a specific Piper or Style-Bert-VITS2 voice model, that operator must comply with the terms of the corresponding model provider.
+This repository does not treat any particular third-party voice model, avatar asset, or character model as a bundled default distribution artifact. If an operator configures a specific Piper or Style-Bert-VITS2 voice model, avatar asset, or character model, that operator must comply with the terms of the corresponding provider.
 
-### Example Attribution for Tsukuyomi-derived Voice Models
-
-The following is an example attribution for deployments that choose to use a model derived from the つくよみちゃんコーパス:
-
-> 本ソフトウェアの音声合成には、フリー素材キャラクター「つくよみちゃん」（© Rei Yumesaki）が無料公開している音声データを使用しています。
->
-> ■つくよみちゃんコーパス（CV.夢前黎） https://tyc.rei-yumesaki.net/material/corpus/
-
-This example is not a statement that the repository itself distributes that model. It is a reference for operators who independently choose to adopt such a model.
+When a chosen voice model or character asset requires attribution, redistribution limits, or commercial-use conditions, the operator must publish the required notices according to that provider's rules.
 
 ### Container Images and Service Dependencies
 
