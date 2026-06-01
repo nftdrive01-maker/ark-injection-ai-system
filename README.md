@@ -99,6 +99,13 @@ Google Workspace MCP や e-Stat MCP をまだ使わない場合は、clone 対�
 - 音声モデル、アバター素材、キャラクターモデル、秘密情報はこのスクリプトでは取得しません
 - `-StartStack` は Amica / injection-tool / mcp-server / SBV2 の基本スタックを起動します。`google-workspace-mcp` と `estat-mcp` は optional profile なので、この起動には含まれません
 
+初回起動の見え方について:
+
+- Ark-i Core の CSS ベース既定表示はこの構成に含まれるため、最低限の画面確認はそのまま行えます
+- ただし音声を出すには、Piper または Style-Bert-VITS2 の音声モデルを別途用意する必要があります
+- 公開テンプレートの `.env.example` では `PIPER_MODEL_URL` と `PIPER_CONFIG_URL` は空です。Piper を使う場合は利用する音声モデルに合わせて設定してください
+- 音声モデルの設定例と切り替え手順は [14_PIPER_TTS_SETUP_AND_SWITCH_JA.md](./docs/14_PIPER_TTS_SETUP_AND_SWITCH_JA.md) と [16_MODEL_SWITCH_MANUAL_JA.md](./docs/16_MODEL_SWITCH_MANUAL_JA.md) を参照してください
+
 optional MCP も起動したい場合:
 
 ```powershell

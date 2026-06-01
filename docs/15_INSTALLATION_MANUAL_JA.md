@@ -45,6 +45,8 @@ Google Workspace MCP と e-Stat MCP を後回しにしたい場合は、次の�
 - `-SkipGoogleWorkspaceMcp` と `-SkipEstatMcp` は該当リポジトリを clone 対象と `.code-workspace` から外します
 - Google Workspace MCP 用の OAuth 情報、音声モデル、アバター素材、キャラクターモデルは別途用意が必要です
 - 開発スタックも続けて起動したい場合は `-StartStack` を追加してください。これは基本スタックのみを起動し、`google-workspace-mcp` と `estat-mcp` は含みません
+- Ark-i Core の CSS ベース既定表示はこの構成に含まれますが、音声を出すには別途音声モデル設定が必要です
+- Piper を使う場合は `.env` の `PIPER_MODEL_URL` と `PIPER_CONFIG_URL` を設定してください。詳細は [14_PIPER_TTS_SETUP_AND_SWITCH_JA.md](./14_PIPER_TTS_SETUP_AND_SWITCH_JA.md) を参照してください
 
 Google Workspace MCP と e-Stat MCP も起動したい場合:
 
