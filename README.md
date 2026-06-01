@@ -61,7 +61,6 @@ flowchart LR
 
 [![Watch the demo on YouTube](https://img.youtube.com/vi/KkAgpVP2Bv8/hqdefault.jpg)](https://www.youtube.com/watch?v=KkAgpVP2Bv8)
 
-GitHub README 上では YouTube プレイヤーの直接埋め込みは使いにくいため、サムネイルクリックで動画を開く形にしています。
 
 ## Core Services
 
