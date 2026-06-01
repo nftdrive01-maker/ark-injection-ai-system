@@ -29,6 +29,10 @@ ark-injection-ai-system is a Docker Compose-based orchestration layer for Ark-i,
 - Google Workspace、e-Stat、DBHub などを MCP 経由で統合できる
 - Piper / Style-Bert-VITS2 などの音声合成を同じ Compose で束ねられる
 - ローカル検証、PoC、本番公開まで同じ構成思想で持っていける
+- ドメイン毎に会話のフルログDBを設定できる
+- アバターは2D画像や軽量なHTML+CSS、VRMなど利用可能
+- Webカメラを使った視線起動ができる
+
 
 ## System Snapshot
 
