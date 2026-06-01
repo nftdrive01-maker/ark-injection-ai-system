@@ -12,8 +12,8 @@ ark-injection-ai-system は以下の層に分かれます。
 
 3. 外部データ接続層
 - mcp-server
-- google-workspace-mcp
-- estat-mcp
+- google-workspace-mcp (optional)
+- estat-mcp (optional)
 - DBHub
 
 4. 音声・補助処理層
@@ -48,8 +48,8 @@ ark-injection-ai-system は以下の層に分かれます。
 - 主要接続先:
   - フロントアプリ
   - mcp-server
-  - google-workspace-mcp
-  - estat-mcp
+  - google-workspace-mcp (利用時)
+  - estat-mcp (利用時)
   - DBHub
   - TTS
 
@@ -62,6 +62,7 @@ ark-injection-ai-system は以下の層に分かれます。
 
 ### google-workspace-mcp
 - 種別: FastMCP ベースの Google Workspace 統合サーバー
+- 基本スタック外の optional サービス
 - 既定ポート: 8001 をホスト公開、コンテナ内部は 8000
 - 主な役割:
   - Gmail、Drive、Calendar、Docs、Sheets、Slides、Forms、Tasks、Contacts、Chat、Search
@@ -70,6 +71,7 @@ ark-injection-ai-system は以下の層に分かれます。
 
 ### estat-mcp
 - 種別: e-Stat API クライアント兼 MCP サーバー
+- 基本スタック外の optional サービス
 - 既定ポート: 8002 をホスト公開、コンテナ内部は 8000
 - 主な役割:
   - 統計テーブル検索

@@ -2,6 +2,10 @@
 
 このディレクトリは、ark-injection-ai-system 全体を対象にした日本語ドキュメントセットです。
 
+補足:
+- 基本スタックは Amica / injection-tool / mcp-server / TTS / PostgreSQL / DBHub です
+- `google-workspace-mcp` と `estat-mcp` は必要時のみ追加する optional サービスです
+
 対象読者:
 - 外部説明向け: システムの目的、全体像、主要機能を短時間で把握したい人
 - 管理者向け: injection-tool 管理画面、公開設定、ドメイン管理、MCP 管理を担当する人
@@ -18,12 +22,14 @@
    - 05_SETUP_AND_DEPLOYMENT_JA.md
    - 10_CONFIGURATION_REFERENCE_JA.md
    - 09_TROUBLESHOOTING_JA.md
+   - Google Workspace や e-Stat を使う場合は関連 MCP の説明もあわせて読む
 3. 日常運用を行う場合
    - 07_ADMIN_AND_OPERATOR_MANUAL_JA.md
    - 08_RUNTIME_OPERATIONS_JA.md
    - 16_MODEL_SWITCH_MANUAL_JA.md
    - 09_TROUBLESHOOTING_JA.md
    - 12_CLOUDFLARE_ACCESS_CHECKLIST_JA.md
+   - Google Workspace や e-Stat を使う場合は 05_SETUP_AND_DEPLOYMENT_JA.md の optional MCP 手順も確認する
 4. 技術仕様を把握したい場合
    - 02_ARCHITECTURE_AND_DATAFLOW_JA.md
    - 03_TECHNICAL_SPEC_JA.md

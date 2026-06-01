@@ -4,14 +4,16 @@
 
 ark-injection-ai-system は Docker Compose を中心に構成されるマルチサービス型システムです。ユーザーの入口は原則としてフロントアプリであり、内部では injection-tool、MCP サーバー群、TTS、DB に接続します。
 
+基本スタックはフロントアプリ、injection-tool、mcp-server、TTS、DB、DBHub です。`google-workspace-mcp` と `estat-mcp` は必要なときだけ追加する optional MCP サービスです。
+
 ```mermaid
 flowchart LR
   U[User Browser] --> A[Front App :3000]
   A --> I[injection-tool :4001]
   A --> T[TTS :5000]
   I --> M[mcp-server :8000]
-  I --> G[google-workspace-mcp :8001]
-  I --> E[estat-mcp :8002]
+  I -. optional .-> G[google-workspace-mcp :8001]
+  I -. optional .-> E[estat-mcp :8002]
   I --> D[PostgreSQL :5432]
   I --> H[DBHub :8080]
 ```
@@ -33,8 +35,8 @@ flowchart LR
 
 ### MCP サーバー群
 - mcp-server: テスト用または汎用 MCP 接続先
-- google-workspace-mcp: Gmail、Drive、Calendar、Docs、Sheets など
-- estat-mcp: 日本政府統計ポータル e-Stat
+- google-workspace-mcp: Gmail、Drive、Calendar、Docs、Sheets などの optional 連携
+- estat-mcp: 日本政府統計ポータル e-Stat の optional 連携
 - DBHub: PostgreSQL を対象とした DB ゲートウェイ
 
 ### TTS

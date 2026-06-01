@@ -18,6 +18,13 @@ cd D:\ark-injection-ai-system
 .\scripts\dev-up-container-sbv2.ps1
 ```
 
+Google Workspace MCP や e-Stat MCP も起動したい場合:
+
+```powershell
+cd D:\ark-injection-ai-system
+.\scripts\dev-up-container-sbv2.ps1 -IncludeGoogleWorkspaceMcp -IncludeEstatMcp
+```
+
 ### 本番相当起動
 ```powershell
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
@@ -83,7 +90,11 @@ docker logs ark-amica --tail 200
 docker logs ark-injection-tool --tail 200
 
 docker logs ark-mcp-server --tail 200
+```
 
+optional MCP を起動している場合:
+
+```powershell
 docker logs ark-google-workspace-mcp --tail 200
 
 docker logs ark-estat-mcp --tail 200
@@ -156,7 +167,7 @@ docker exec ark-amica printenv NEXT_PUBLIC_MANAGED_CONFIG_KEYS NEXT_PUBLIC_HIDDE
 - 管理画面へ入れるか
 - 対象ドメインで会話できるか
 - TTS が動くか
-- 主要 MCP が動くか
+- 利用中の MCP が動くか
 - 公開 URL が意図した入口だけになっているか
 
 ## 関連資料

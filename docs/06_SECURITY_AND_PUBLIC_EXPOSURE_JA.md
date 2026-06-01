@@ -13,8 +13,8 @@ ark-injection-ai-system では、外部公開時に内部サービスを直接�
 ### 原則として公開しない面
 - injection-tool 管理画面
 - mcp-server
-- google-workspace-mcp
-- estat-mcp
+- google-workspace-mcp  （利用時のみ起動する optional サービス）
+- estat-mcp  （利用時のみ起動する optional サービス）
 - TTS
 - DBHub
 - PostgreSQL
@@ -42,7 +42,7 @@ ark-injection-ai-system では、外部公開時に内部サービスを直接�
 injection-tool の管理画面は管理者認証を前提にします。管理ユーザー名・パスワードは既定値のまま使わず、必ず変更してください。
 
 ### Google OAuth
-Google Workspace 連携では OAuth クレデンシャル管理が必須です。以下を守ってください。
+Google Workspace 連携を使う場合は OAuth クレデンシャル管理が必須です。以下を守ってください。
 - 自組織の GCP プロジェクトを使う
 - 必要最小限のスコープを選ぶ
 - callback URL を公開 URL と一致させる

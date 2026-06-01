@@ -13,7 +13,8 @@
 | INJECTION_TOOL_PORT | 4001 | injection-tool 公開ポート | 管理面ポート変更時 | 原則外部非公開 |
 | MCP_SERVER_PORT | 8000 | mcp-server 公開ポート | テスト用途変更時 | 原則外部非公開 |
 | SBV2_PORT | 5000 | TTS 公開ポート | TTS ポート変更時 | Compose の `sbv2` サービスと整合を取る |
-| ESTAT_MCP_PORT | 8002 | estat-mcp 公開ポート | e-Stat 接続面変更時 | 原則外部非公開 |
+| ESTAT_MCP_PORT | 8002 | estat-mcp 公開ポート | e-Stat 接続面変更時 | optional サービス。原則外部非公開 |
+| GOOGLE_WORKSPACE_MCP_PORT | 8001 | google-workspace-mcp 公開ポート | Google Workspace 接続面変更時 | optional サービス。原則外部非公開 |
 | DB_PORT | 5432 | PostgreSQL ポート | DB 設計変更時 | 原則外部非公開 |
 | DBHUB_PORT | 8080 | DBHub 公開ポート | DB 管理 UI 変更時 | 原則外部非公開 |
 
@@ -58,15 +59,15 @@
 
 | 変数名 | 既定値 | 意味 | 注意 |
 |---|---|---|---|
-| GOOGLE_OAUTH_CLIENT_ID | なし | Google OAuth Client ID | 機密に準ずる扱い |
-| GOOGLE_OAUTH_CLIENT_SECRET | なし | Google OAuth Client Secret | 機密情報 |
+| GOOGLE_OAUTH_CLIENT_ID | なし | Google OAuth Client ID | Google Workspace を使う場合のみ必要 |
+| GOOGLE_OAUTH_CLIENT_SECRET | なし | Google OAuth Client Secret | Google Workspace を使う場合のみ必要な機密情報 |
 | CLOUDFLARE_EXTERNAL_URL | 空 | 外部公開 URL | callback URL と整合が必要 |
 
 ## e-Stat 関連
 
 | 変数名 | 既定値 | 意味 | 注意 |
 |---|---|---|---|
-| ESTAT_APP_ID | 空 | e-Stat API の appId | 未設定だと実質利用不可 |
+| ESTAT_APP_ID | 空 | e-Stat API の appId | e-Stat を使う場合のみ必要。未設定だと実質利用不可 |
 
 ## DB 関連
 

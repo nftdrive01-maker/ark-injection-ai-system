@@ -11,8 +11,8 @@
 | 音声合成 | 音声合成エンジン | TTS |
 | 音声入力 | Whisper 系、Web Speech API、VAD | STT とマイク制御 |
 | MCP | FastMCP / MCP サーバー群 | 外部ツール接続 |
-| 統計データ | estat-mcp | e-Stat 接続 |
-| Google 連携 | google-workspace-mcp | Workspace 接続 |
+| 統計データ | estat-mcp | e-Stat 接続 / optional |
+| Google 連携 | google-workspace-mcp | Workspace 接続 / optional |
 | テスト MCP | mcp-server | 接続確認・簡易ツール |
 | データベース | PostgreSQL 15 | 永続データ |
 | DB ゲートウェイ | Bytebase DBHub | DB 接続・操作 |
@@ -32,7 +32,7 @@
 日本語 TTS に適しており、CPU と CUDA を切替しながら運用できます。Docker でもホスト実行でも扱えるため、マシン制約や性能要件に合わせやすい点が利点です。
 
 ### MCP サーバー群
-Google Workspace、e-Stat、DB などの外部ソースを AI に統合するための接続層です。知識注入と分離することで、データソースごとの責務が明確になります。
+Google Workspace、e-Stat、DB などの外部ソースを AI に統合するための接続層です。基本スタックでは mcp-server と DB 系を中心に使い、Google Workspace や e-Stat は必要時のみ optional に追加できます。知識注入と分離することで、データソースごとの責務が明確になります。
 
 ### PostgreSQL + DBHub
 RDB を利用したデータ保持や検索系ユースケースに対応しやすく、DBHub によって接続面や管理面を分離できます。
@@ -65,12 +65,14 @@ Cloudflare Tunnel はインターネット向けの簡易公開に向き、Caddy
 - FastMCP
 - Google OAuth 2.x
 - Google Workspace API 群
+- optional サービス
 
 ### estat-mcp
 - Python
 - Pydantic
 - e-Stat API
 - MCP サーバー
+- optional サービス
 
 ### mcp-server
 - Python

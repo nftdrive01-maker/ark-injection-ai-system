@@ -1,5 +1,7 @@
 param(
     [switch]$RemoveVolumes,
+    [switch]$IncludeGoogleWorkspaceMcp,
+    [switch]$IncludeEstatMcp,
     [switch]$DryRun
 )
 
@@ -19,6 +21,14 @@ $command = @(
     'sbv2'
 )
 
+if ($IncludeGoogleWorkspaceMcp) {
+    $command += 'google-workspace-mcp'
+}
+
+if ($IncludeEstatMcp) {
+    $command += 'estat-mcp'
+}
+
 if ($DryRun) {
     Write-Host ('DRY RUN: docker-compose ' + (($composeFiles + $command) -join ' '))
     return
@@ -36,5 +46,14 @@ if ($RemoveVolumes) {
         'mcp-server',
         'sbv2'
     )
+
+    if ($IncludeGoogleWorkspaceMcp) {
+        $rmCommand += 'google-workspace-mcp'
+    }
+
+    if ($IncludeEstatMcp) {
+        $rmCommand += 'estat-mcp'
+    }
+
     & docker-compose @composeFiles @rmCommand
 }

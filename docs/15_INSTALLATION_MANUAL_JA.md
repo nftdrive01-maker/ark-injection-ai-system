@@ -27,6 +27,31 @@ GPU で SBV2 を動かしたい場合の追加前提:
 
 ## 2. リポジトリ配置
 
+`ark-injection-ai-system` を先に clone している場合は、以下のスクリプトで関連リポジトリの clone と `.env` の初期生成をまとめて実行できます。
+
+```powershell
+cd D:\ark-injection-ai-system
+.\scripts\setup-workspace.ps1 -ChatBackend chatgpt
+```
+
+Google Workspace MCP と e-Stat MCP を後回しにしたい場合は、次のように clone 対象と workspace 登録から外せます。
+
+```powershell
+.\scripts\setup-workspace.ps1 -ChatBackend chatgpt -SkipGoogleWorkspaceMcp -SkipEstatMcp
+```
+
+補足:
+- `-ChatBackend chatgpt` は OpenAI 系、`-ChatBackend ollama` は Ollama 系の初期値で `.env` を生成します
+- `-SkipGoogleWorkspaceMcp` と `-SkipEstatMcp` は該当リポジトリを clone 対象と `.code-workspace` から外します
+- Google Workspace MCP 用の OAuth 情報、音声モデル、アバター素材、キャラクターモデルは別途用意が必要です
+- 開発スタックも続けて起動したい場合は `-StartStack` を追加してください。これは基本スタックのみを起動し、`google-workspace-mcp` と `estat-mcp` は含みません
+
+Google Workspace MCP と e-Stat MCP も起動したい場合:
+
+```powershell
+.\scripts\dev-up-container-sbv2.ps1 -Build -IncludeGoogleWorkspaceMcp -IncludeEstatMcp
+```
+
 以下のように並列配置してください。
 
 - `D:\ark-injection-ai-system`

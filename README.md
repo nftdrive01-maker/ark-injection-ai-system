@@ -39,8 +39,8 @@ flowchart LR
 		A --> C[Chat Backend / Domain Logic]
 		I --> C
 		C --> M1[mcp-server]
-		C --> M2[google-workspace-mcp]
-		C --> M3[estat-mcp]
+		C -. optional .-> M2[google-workspace-mcp]
+		C -. optional .-> M3[estat-mcp]
 		C --> DB[(PostgreSQL / DBHub)]
 		C --> T1[Style-Bert-VITS2]
 		C --> T2[Piper]
@@ -59,18 +59,51 @@ flowchart LR
 
 ## Core Services
 
+基本スタックは Amica / injection-tool / mcp-server / SBV2(or Piper) / PostgreSQL / DBHub です。  
+`google-workspace-mcp` と `estat-mcp` は必要なときだけ追加起動する optional サービスです。
+
 | サービス | 役割 | 既定ポート |
 | --- | --- | ---: |
 | Amica | ユーザー向け会話 UI | 3000 |
 | injection-tool | 知識注入、管理画面、公開設定 API | 4001 |
 | mcp-server | 汎用 MCP ルーター / 検証用サーバー | 8000 |
-| google-workspace-mcp | Google Workspace 連携 | 8001 |
-| estat-mcp | e-Stat 連携 | 8002 |
+| google-workspace-mcp | Google Workspace 連携 / optional | 8001 |
+| estat-mcp | e-Stat 連携 / optional | 8002 |
 | SBV2 / Piper | 音声合成 | 5000 / 5001 |
 | PostgreSQL | 永続データ保存 | 5432 |
 | DBHub | DB ゲートウェイ | 8080 |
 
 ## Quick Start
+
+### 0. Bootstrap Workspace
+
+このリポジトリ自体を先に clone したあと、関連リポジトリの clone、`.env` の初期生成、VS Code workspace ファイル作成をまとめて行うには、次のスクリプトを使えます。
+
+```powershell
+git clone https://github.com/nftdrive01-maker/ark-injection-ai-system.git
+cd ark-injection-ai-system
+.\scripts\setup-workspace.ps1 -ChatBackend chatgpt
+```
+
+Google Workspace MCP や e-Stat MCP をまだ使わない場合は、clone 対象と workspace 登録から外せます。
+
+```powershell
+.\scripts\setup-workspace.ps1 -ChatBackend chatgpt -SkipGoogleWorkspaceMcp -SkipEstatMcp
+```
+
+補足:
+
+- 既定では、現在の `ark-injection-ai-system` ディレクトリの親フォルダを workspace ルートとして扱います
+- `-ChatBackend chatgpt` を指定すると OpenAI 系、`-ChatBackend ollama` を指定すると Ollama 系の初期値で `.env` を準備します
+- `-SkipGoogleWorkspaceMcp` と `-SkipEstatMcp` は clone 対象と生成する `.code-workspace` から該当リポジトリを外します
+- 音声モデル、アバター素材、キャラクターモデル、秘密情報はこのスクリプトでは取得しません
+- `-StartStack` は Amica / injection-tool / mcp-server / SBV2 の基本スタックを起動します。`google-workspace-mcp` と `estat-mcp` は optional profile なので、この起動には含まれません
+
+optional MCP も起動したい場合:
+
+```powershell
+.\scripts\dev-up-container-sbv2.ps1 -Build -IncludeGoogleWorkspaceMcp -IncludeEstatMcp
+```
 
 ## Recommended Environment
 
@@ -185,6 +218,8 @@ workspace/
 	estat-mcp/
 	piper/
 ```
+
+この並びを手作業で作る代わりに、`ark-injection-ai-system` を clone したあとで `scripts/setup-workspace.ps1` を使う方法もあります。
 
 ### 5. Start Production Stack
 

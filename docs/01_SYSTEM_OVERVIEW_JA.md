@@ -42,13 +42,16 @@ MCP 経由で Google Workspace、e-Stat、DB、テスト用 MCP サーバーな�
 
 ## システムを構成する主要サービス
 
+基本スタックはフロントアプリ / injection-tool / mcp-server / TTS / PostgreSQL / DBHub です。  
+`google-workspace-mcp` と `estat-mcp` は必要時のみ追加する optional サービスとして扱えます。
+
 | サービス | 役割 | 既定ポート |
 |---|---|---:|
 | フロントアプリ | ユーザー向け会話 UI | 3000 |
 | injection-tool | 知識注入、管理画面、公開設定 API | 4001 |
 | mcp-server | 汎用 MCP ルーター/テスト用接続先 | 8000 |
-| google-workspace-mcp | Google Workspace 連携 | 8001 |
-| estat-mcp | e-Stat 統計連携 | 8002 |
+| google-workspace-mcp | Google Workspace 連携 / optional | 8001 |
+| estat-mcp | e-Stat 統計連携 / optional | 8002 |
 | TTS | 音声合成 | 5000 |
 | PostgreSQL | 永続データ保存 | 5432 |
 | DBHub | DB 操作用ゲートウェイ/UI | 8080 |

@@ -247,6 +247,8 @@ services:
 
   google-workspace-mcp:
     container_name: ark-google-workspace-mcp
+    profiles:
+      - google-workspace-mcp
     build:
       context: ../google-workspace-mcp
     ports:
@@ -268,6 +270,8 @@ services:
 
   estat-mcp:
     container_name: ark-estat-mcp
+    profiles:
+      - estat-mcp
     build:
       context: ../estat-mcp
     ports:

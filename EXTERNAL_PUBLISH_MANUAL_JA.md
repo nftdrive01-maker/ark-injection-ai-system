@@ -19,6 +19,7 @@
 > 補足:
 > - フロントアプリ (:3000) の公開が基本です。
 > - injection-tool 管理画面 (:4001) を外部公開する場合は、Cloudflare Access を必須にしてください。
+> - `google-workspace-mcp` は optional サービスです。Google Workspace を使わない構成では起動していなくても構いません。
 > - 管理画面公開時は docs/11_INJECTION_TOOL_4001_TUNNEL_SECURITY_REVIEW_JA.md、docs/12_CLOUDFLARE_ACCESS_CHECKLIST_JA.md、docs/13_CLOUDFLARE_ACCESS_SETUP_JA.md を併読してください。
 
 ### 前提条件
@@ -74,7 +75,13 @@ CLOUDFLARE_EXTERNAL_URL=https://xxxx-yyyy-zzzz.trycloudflare.com
 #### 5. コンテナを再起動して設定を反映する
 
 ```powershell
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --force-recreate injection-tool google-workspace-mcp
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --force-recreate injection-tool
+```
+
+Google Workspace を使う場合は、`google-workspace-mcp` も再作成します。
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.dev.yml --profile google-workspace-mcp up -d --force-recreate google-workspace-mcp
 ```
 
 #### 6. Google OAuth リダイレクト URI を更新する（Google 連携を使う場合）
@@ -195,7 +202,13 @@ mkcert -CAROOT   # CA ファイルの場所を確認
 
 ```powershell
 # CLOUDFLARE_EXTERNAL_URL をコメントアウト後
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --force-recreate injection-tool google-workspace-mcp
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --force-recreate injection-tool
+```
+
+Google Workspace を使う場合は、停止時も `google-workspace-mcp` を再作成してください。
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.dev.yml --profile google-workspace-mcp up -d --force-recreate google-workspace-mcp
 ```
 
 #### LAN HTTPS の停止

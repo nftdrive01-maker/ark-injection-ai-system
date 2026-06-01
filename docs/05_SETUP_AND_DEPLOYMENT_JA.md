@@ -22,8 +22,8 @@
 - amica  （amica-nftdrive のローカル配置先）
 - injection-tool
 - mcp-server
-- google-workspace-mcp
-- estat-mcp
+- google-workspace-mcp  （Google Workspace を使う場合の optional 構成）
+- estat-mcp  （e-Stat を使う場合の optional 構成）
 - sbv2/Style-Bert-VITS2  （Style-Bert-VITS2-nftdrive のローカル配置先）
 
 compose からは `../amica`（amica-nftdrive のローカル配置先）や `../injection-tool` などを参照するため、相対配置を崩さないでください。
@@ -40,9 +40,9 @@ compose からは `../amica`（amica-nftdrive のローカル配置先）や `..
    - `AMICA_MANAGED_CONFIG_KEYS`
    - `AMICA_HIDDEN_SETTINGS_PAGES`
    - `AMICA_OPENAI_APIKEY`
-   - `GOOGLE_OAUTH_CLIENT_ID`
-   - `GOOGLE_OAUTH_CLIENT_SECRET`
-   - `ESTAT_APP_ID`
+   - `GOOGLE_OAUTH_CLIENT_ID`  （Google Workspace を使う場合）
+   - `GOOGLE_OAUTH_CLIENT_SECRET`  （Google Workspace を使う場合）
+   - `ESTAT_APP_ID`  （e-Stat を使う場合）
    - `DB_USER`
    - `DB_PASSWORD`
    - `DB_NAME`
@@ -51,11 +51,11 @@ compose からは `../amica`（amica-nftdrive のローカル配置先）や `..
 GitHub 管理外で別途用意が必要なもの:
 
 - `.env` に設定する秘密情報
-   - Google OAuth client ID / secret
+   - Google OAuth client ID / secret  （Google Workspace を使う場合）
    - injection-tool 管理者アカウント
    - OpenAI などの API キー
-   - `ESTAT_APP_ID`
-- `ark-injection-ai-system/google-workspace-mcp-credentials` に保存する Google Workspace の credential / token
+   - `ESTAT_APP_ID`  （e-Stat を使う場合）
+- `ark-injection-ai-system/google-workspace-mcp-credentials` に保存する Google Workspace の credential / token  （Google Workspace を使う場合）
 - `../sbv2/Style-Bert-VITS2/model_assets` と `../sbv2/Style-Bert-VITS2/bert`
 - `../piper/data` に保持される Piper モデル
 - アバター画像、Live2D などのキャラクター素材やキャラクターモデル
@@ -88,12 +88,20 @@ cd D:\ark-injection-ai-system
 - injection-tool
 - mcp-server
 - sbv2
+- `google-workspace-mcp` と `estat-mcp` は含まれず、必要時だけ明示的に追加起動する
 
 特徴:
 - フロントアプリと injection-tool は Node.js 開発サーバー
 - bind mount によりソース反映を行う
 - polling を有効化して Windows + Docker 開発でも変更検知しやすくしている
 - `sbv2-init` が初回に BERT とデフォルト推論モデルを準備する
+
+optional MCP も一緒に起動したい場合:
+
+```powershell
+cd D:\ark-injection-ai-system
+.\scripts\dev-up-container-sbv2.ps1 -Build -IncludeGoogleWorkspaceMcp -IncludeEstatMcp
+```
 
 ## SBV2 の CPU / CUDA 切替
 
@@ -151,7 +159,8 @@ Cloudflare を使う場合の概要手順:
 1. 開発または本番相当のフロントアプリを起動する
 2. `cloudflared tunnel --url http://localhost:3000` を実行する
 3. 表示された URL を `.env` の `CLOUDFLARE_EXTERNAL_URL` に設定する
-4. `injection-tool` と `google-workspace-mcp` を再作成する
+4. `injection-tool` を再作成する
+5. Google Workspace を使う場合は `google-workspace-mcp` も再作成する
 
 例:
 
@@ -162,6 +171,8 @@ cloudflared tunnel --url http://localhost:3000
 詳細は `EXTERNAL_PUBLISH_MANUAL_JA.md` を参照してください。
 
 ## Google Workspace の有効化
+
+この機能は optional です。使わない場合は `google-workspace-mcp` を起動しなくても構いません。
 
 最低限必要なこと:
 - `GOOGLE_OAUTH_CLIENT_ID`
@@ -174,6 +185,8 @@ cloudflared tunnel --url http://localhost:3000
 Cloudflare 経由で公開する場合は callback URL も外部 URL に合わせて更新してください。
 
 ## e-Stat の有効化
+
+この機能は optional です。使わない場合は `estat-mcp` を起動しなくても構いません。
 
 `.env` に以下を設定します。
 

@@ -75,6 +75,8 @@ services:
     image: bytebase/dbhub:latest
 
   google-workspace-mcp:
+    profiles:
+      - google-workspace-mcp
     entrypoint:
       - sh
       - -c
@@ -86,6 +88,8 @@ services:
       - ./google-workspace-mcp-credentials:/app/credentials
 
   estat-mcp:
+    profiles:
+      - estat-mcp
     entrypoint:
       - sh
       - -c

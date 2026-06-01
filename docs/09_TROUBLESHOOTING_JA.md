@@ -19,6 +19,9 @@
 | DBHub に接続できない | database 未起動、認証情報不一致 | `docker ps`、DB 環境変数 |
 | 設定変更が反映されない | dev ホットリロード不整合、managed config、コンテナ再作成不足 | `.env`、service 再作成 |
 
+補足:
+- `google-workspace-mcp` と `estat-mcp` は optional サービスです。使っていない構成では、これらが停止していても異常ではありません
+
 ## 個別対応
 
 ### 1. フロントアプリが開かない
@@ -82,6 +85,9 @@ Invoke-WebRequest -UseBasicParsing http://127.0.0.1:5000/docs
 - ブラウザ設定から変更できない場合は `AMICA_MANAGED_CONFIG_KEYS` による中央管理が有効になっているか確認する
 
 ### 6. Google OAuth callback エラー
+前提:
+- `google-workspace-mcp` を起動している構成で切り分ける
+
 確認:
 - `CLOUDFLARE_EXTERNAL_URL`
 - Google Cloud Console の承認済みリダイレクト URI
@@ -133,11 +139,15 @@ docker logs ark-injection-tool --tail 200
 
 docker logs ark-amica --tail 200
 
+Invoke-WebRequest -UseBasicParsing http://127.0.0.1:5000/docs
+```
+
+optional MCP を使っている場合:
+
+```powershell
 docker logs ark-google-workspace-mcp --tail 200
 
 docker logs ark-estat-mcp --tail 200
-
-Invoke-WebRequest -UseBasicParsing http://127.0.0.1:5000/docs
 ```
 
 ## 切り分け順序
