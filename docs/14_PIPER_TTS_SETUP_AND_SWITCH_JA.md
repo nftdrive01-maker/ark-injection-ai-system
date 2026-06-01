@@ -7,7 +7,7 @@
 現行構成の要点:
 - Amica 側の既定 TTS は `.env` の `AMICA_TTS_BACKEND` で制御する
 - Piper は公式 `ghcr.io/ayutaz/piper-plus/python-inference:dev` を使って起動する
-- 日本語モデルは `ayousanz/piper-plus-tsukuyomi-chan` を利用する
+- このリポジトリは特定の音声モデル実体を配布しない
 - Amica の Piper proxy は `GET /synthesize` を使い、CLI と同じ推論条件で音声を生成する
 
 ## 関連ファイル
@@ -17,9 +17,9 @@
 - `piper/docker-compose.yml`
 - `amica/src/app/api/piper/route.ts`  （amica-nftdrive のローカル配置先）
 
-## 現在の既定値
+## 設定例
 
-`.env` の主な Piper 関連値:
+`.env` の主な Piper 関連値の例:
 
 ```env
 AMICA_TTS_BACKEND=piper
@@ -32,6 +32,8 @@ PIPER_DEVICE=cpu
 PIPER_LENGTH_SCALE=1.0
 PIPER_NOISE_SCALE=0.667
 ```
+
+この資料では、例として `ayousanz/piper-plus-tsukuyomi-chan` を使っています。公開リポジトリ自体は当該モデルを同梱しません。
 
 管理固定の主なキー:
 
@@ -64,6 +66,8 @@ PIPER_LENGTH_SCALE=1.0
 PIPER_NOISE_SCALE=0.667
 ```
 
+`PIPER_MODEL_URL` と `PIPER_CONFIG_URL` は、利用する音声モデルに合わせて運用者が設定してください。上記 URL は参考例です。
+
 ### 2. 対象サービスを再作成する
 
 ```powershell
@@ -73,7 +77,7 @@ docker compose up -d --force-recreate piper injection-tool amica
 
 補足:
 - `docker restart` ではなく `--force-recreate` を使う
-- 初回は公式イメージ pull とモデル download が入るので少し時間がかかる
+- 初回は公式イメージ pull と、設定したモデル URL からの download が入るので少し時間がかかる
 - `piper/data` にモデルが保存される
 
 ### 2.1 モデル切替後は最適化キャッシュを削除する
@@ -166,7 +170,7 @@ docker compose up -d --force-recreate sbv2 amica
 
 ## 公式 Piper 実装の注意点
 
-- `ayousanz/piper-plus-tsukuyomi-chan` は `piper-plus` 専用モデルです。upstream Piper 系ランタイムとは互換ではありません
+- 例として使っている `ayousanz/piper-plus-tsukuyomi-chan` は `piper-plus` 専用モデルです。upstream Piper 系ランタイムとは互換ではありません
 - そのため `ghcr.io/ayutaz/piper-plus/python-inference:dev` の公式 runtime を使います
 - Amica は [amica/src/app/api/piper/route.ts](../amica/src/app/api/piper/route.ts)（amica-nftdrive のローカル配置先）から `GET /synthesize` へ中継します
 - PowerShell から日本語を直接テストする場合は UTF-8 バイトで送るほうが確実です

@@ -53,19 +53,17 @@ Important:
 
 ## Additional Notes
 
-### Default Runtime Model Notes
+### Runtime Model Configuration Notes
 
-The default Ark-i configuration currently points at the following runtime models:
+This repository distributes application code, container configuration, and integration settings, but does not distribute model weights, voice models, or other learned artifacts.
 
-- Text chat model: `qwen2.5:7b`
-- Vision model: `llava`
-- Piper voice model: `ayousanz/piper-plus-tsukuyomi-chan`
+Operators are responsible for selecting, obtaining, and configuring the models used for:
 
-License notes for those defaults:
+- text chat
+- vision
+- speech synthesis
 
-- `qwen2.5:7b`: the upstream Qwen2.5 7B Instruct model is published under Apache-2.0.
-- `llava`: verify the exact pulled Ollama tag before redistribution or hosted commercial rollout. A representative upstream reference, `llava-hf/llava-1.5-7b-hf`, is published under the Llama 2 Community License.
-- `ayousanz/piper-plus-tsukuyomi-chan`: the model card states that its license follows the つくよみちゃんコーパス terms, which are separate from the Piper runtime license.
+Those models may be subject to separate licenses, terms of use, attribution requirements, export restrictions, or redistribution limits set by their respective providers.
 
 ### Voice Models and Assets
 
@@ -79,13 +77,17 @@ Before redistribution or commercial deployment, confirm the license of:
 - fonts
 - images and media
 
-For the default Piper voice model used by this repository, the practical requirement is not a blanket commercial prohibition but compliance with the つくよみちゃんコーパス conditions, including credit display and restrictions on some public use cases and redistribution patterns.
+This repository does not treat any particular third-party voice model as a bundled default distribution artifact. If an operator configures a specific Piper or Style-Bert-VITS2 voice model, that operator must comply with the terms of the corresponding model provider.
 
-Recommended attribution text for public software using the default Piper voice model:
+### Example Attribution for Tsukuyomi-derived Voice Models
+
+The following is an example attribution for deployments that choose to use a model derived from the つくよみちゃんコーパス:
 
 > 本ソフトウェアの音声合成には、フリー素材キャラクター「つくよみちゃん」（© Rei Yumesaki）が無料公開している音声データを使用しています。
 >
 > ■つくよみちゃんコーパス（CV.夢前黎） https://tyc.rei-yumesaki.net/material/corpus/
+
+This example is not a statement that the repository itself distributes that model. It is a reference for operators who independently choose to adopt such a model.
 
 ### Container Images and Service Dependencies
 

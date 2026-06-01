@@ -26,7 +26,7 @@ services:
       HOSTNAME: 0.0.0.0
       INJECTION_TOOL_INTERNAL_URL: http://injection-tool:4001
       NEXT_PUBLIC_CHATBOT_BACKEND: ${AMICA_CHATBOT_BACKEND:-ollama}
-      NEXT_PUBLIC_MANAGED_CONFIG_KEYS: ${AMICA_MANAGED_CONFIG_KEYS:-chatbot_backend,ollama_url,ollama_model,vision_backend,vision_ollama_url,vision_ollama_model}
+      NEXT_PUBLIC_MANAGED_CONFIG_KEYS: ${AMICA_MANAGED_CONFIG_KEYS:-chatbot_backend,ollama_url,ollama_model,vision_backend,vision_ollama_url,vision_ollama_model,tts_backend,piper_url}
       NEXT_PUBLIC_HIDDEN_SETTINGS_PAGES: ${AMICA_HIDDEN_SETTINGS_PAGES:-}
       NEXT_PUBLIC_SHOW_CHAT_MODE: ${AMICA_DEFAULT_SHOW_CHAT_MODE:-true}
       NEXT_PUBLIC_SHOW_SETTINGS_UI: ${AMICA_SHOW_SETTINGS_UI:-true}
@@ -147,9 +147,9 @@ services:
     ports:
       - "${PIPER_PORT:-5001}:8000"
     environment:
-      PIPER_MODEL_URL: "${PIPER_MODEL_URL:-https://huggingface.co/ayousanz/piper-plus-tsukuyomi-chan/resolve/main/tsukuyomi-chan-6lang-fp16.onnx}"
-      PIPER_CONFIG_URL: "${PIPER_CONFIG_URL:-https://huggingface.co/ayousanz/piper-plus-tsukuyomi-chan/resolve/main/config.json}"
-      PIPER_DEFAULT_LANGUAGE: "${PIPER_DEFAULT_LANGUAGE:-ja-en-zh-es-fr-pt}"
+      PIPER_MODEL_URL: "${PIPER_MODEL_URL:-}"
+      PIPER_CONFIG_URL: "${PIPER_CONFIG_URL:-}"
+      PIPER_DEFAULT_LANGUAGE: "${PIPER_DEFAULT_LANGUAGE:-ja}"
       PIPER_LENGTH_SCALE: "${PIPER_LENGTH_SCALE:-1.0}"
       PIPER_NOISE_SCALE: "${PIPER_NOISE_SCALE:-0.667}"
       PIPER_NOISE_W: "${PIPER_NOISE_W:-0.8}"
@@ -164,8 +164,13 @@ services:
         import urllib.request
         from pathlib import Path
 
-        model_url = os.environ['PIPER_MODEL_URL']
-        config_url = os.environ['PIPER_CONFIG_URL']
+        model_url = os.environ['PIPER_MODEL_URL'].strip()
+        config_url = os.environ['PIPER_CONFIG_URL'].strip()
+        if not model_url or not config_url:
+          raise SystemExit(
+            'PIPER_MODEL_URL and PIPER_CONFIG_URL must be set. '
+            'This repository does not bundle a default Piper voice model.'
+          )
         model_dir = Path('/app/models')
         model_path = model_dir / 'model.onnx'
         config_path = model_dir / 'config.json'

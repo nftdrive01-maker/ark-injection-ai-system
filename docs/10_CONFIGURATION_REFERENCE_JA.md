@@ -29,7 +29,7 @@
 | AMICA_VISION_BACKEND | vision_ollama | 画像認識の既定 backend | vision_ollama / vision_openai / vision_llamacpp を想定 |
 | AMICA_VISION_OLLAMA_URL | http://host.docker.internal:11434 | 画像認識用 Ollama 接続先 | 未分離運用では AMICA_OLLAMA_URL と同じでよい |
 | AMICA_VISION_OLLAMA_MODEL | llava | 画像認識用 Ollama モデル | 画像対応モデルが必要 |
-| AMICA_MANAGED_CONFIG_KEYS | chatbot_backend,ollama_url,ollama_model,vision_backend,vision_ollama_url,vision_ollama_model,chatbot | UI から変更不可にする設定キー一覧 | localStorage より環境変数を優先させたい項目を指定 |
+| AMICA_MANAGED_CONFIG_KEYS | chatbot_backend,ollama_url,ollama_model,vision_backend,vision_ollama_url,vision_ollama_model,tts_backend,piper_url | UI から変更不可にする設定キー一覧 | localStorage より環境変数を優先させたい項目を指定 |
 | AMICA_HIDDEN_SETTINGS_PAGES | 空 | 設定画面で非表示にするページ一覧 | chatbot,tts,stt,vision,developer,external_api をカンマ区切りで指定 |
 | AMICA_OPENAI_APIKEY | 空 | OpenAI API キー | 機密情報 |
 | AMICA_OPENAI_URL | https://api.openai.com | OpenAI API 接続先 | 互換 API へ差し替え可能 |
@@ -48,11 +48,11 @@
 |---|---|---|---|
 | SBV2_DEVICE | cpu | SBV2 コンテナの推論デバイス | `cuda` 指定時は Docker から GPU が見える必要がある |
 | AMICA_TTS_BACKEND | stylebertvits2 または piper | Amica の既定 TTS backend | UI から固定したい場合は managed key に含める |
-| AMICA_PIPER_URL | http://piper:5000 | Amica から見た Piper URL | Amica は `/api/piper/` proxy 経由で利用 |
+| AMICA_PIPER_URL | http://piper:8000 | Amica から見た Piper URL | Amica は `/api/piper/` proxy 経由で利用 |
 | PIPER_PORT | 5001 | ホスト公開する Piper ポート | `http://localhost:5001/healthz` で確認可能 |
-| PIPER_MODEL_URL | モデル URL | Piper が読み込む ONNX モデル | モデル変更後は piper を再 build / 再作成する |
-| PIPER_CONFIG_URL | config.json URL | モデル対応の設定ファイル | ONNX と組で整合が必要 |
-| PIPER_DEFAULT_LANGUAGE | ja | 多言語 Piper モデルの既定言語 | 現在の日本語モデルでは `ja` を使う |
+| PIPER_MODEL_URL | 空 | Piper が読み込む ONNX モデル | このリポジトリでは音声モデルを配布しないため、利用者が別途設定する |
+| PIPER_CONFIG_URL | 空 | モデル対応の設定ファイル | ONNX と組で整合が必要 |
+| PIPER_DEFAULT_LANGUAGE | ja | 選択した音声モデルの既定言語 | 利用モデルに応じて変更する |
 
 ## Google Workspace 関連
 

@@ -109,7 +109,7 @@ docker logs ark-estat-mcp --tail 200
 ### 3. TTS の切替
 - CPU / CUDA の切替は `.env` の `SBV2_DEVICE` を変更して行う
 - 変更後は `dev-down-container-sbv2.ps1` と `dev-up-container-sbv2.ps1` で再起動する
-- Piper へ切り替える場合は `AMICA_TTS_BACKEND=piper` と `AMICA_PIPER_URL=http://piper:5000` を確認し、`docker compose up -d --build --force-recreate piper amica` を使う
+- Piper へ切り替える場合は `AMICA_TTS_BACKEND=piper` と `AMICA_PIPER_URL=http://piper:8000` を確認し、必要な `PIPER_MODEL_URL` / `PIPER_CONFIG_URL` を設定したうえで `docker compose up -d --build --force-recreate piper amica` を使う
 - 詳細手順は [14_PIPER_TTS_SETUP_AND_SWITCH_JA.md](./14_PIPER_TTS_SETUP_AND_SWITCH_JA.md) を参照
 
 ### 4. Cloudflare 公開の開始・停止

@@ -160,6 +160,8 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 
 GitHub から取得できるのはコードと Compose 構成です。認証情報、永続 credential、音声モデル資産は別途用意が必要です。
 
+このリポジトリでは音声モデル実体は配布しません。Piper / Style-Bert-VITS2 の各モデルは、利用者がライセンスを確認のうえ別途取得・配置してください。
+
 ## External Publishing
 
 フロントアプリの一時公開には Cloudflare Quick Tunnel を使えます。
@@ -205,23 +207,25 @@ cloudflared tunnel --url http://localhost:3000
 
 商用利用や導入相談は NFTDrive までお問い合わせください。
 
-## Default Runtime Models
+## Runtime Model Configuration
 
-このリポジトリの既定構成で参照する主要モデルは、少なくとも以下を前提に確認してください。
+このリポジトリは会話モデル、画像認識モデル、音声モデルの実体を配布しません。
 
-| 用途 | 既定値 | 主な参照元 | 注意点 |
-| --- | --- | --- | --- |
-| 会話 | `qwen2.5:7b` | Qwen2.5 7B Instruct / Ollama | Qwen2.5 の 7B 系は Apache-2.0 ベースで確認 |
-| 画像認識 | `llava` | Ollama LLaVA library | LLaVA 系は利用する実タグに依存。代表的な `llava-1.5-7b-hf` は Llama 2 Community License |
-| 音声合成 | `piper` | `ayousanz/piper-plus-tsukuyomi-chan` | ランタイムと音声モデルのライセンスは別。音声モデルは つくよみちゃんコーパス条件に従う |
+Ark-i / Amica / Piper / Style-Bert-VITS2 の各ランタイムは Docker Compose で接続できるようにしていますが、実際に利用するモデルは運用者が別途選定し、ライセンス確認のうえ設定してください。
 
-既定値の根拠は `.env.example` と運用用 `.env` にあります。特に現行運用では TTS は SBV2 ではなく Piper が既定です。
+| 用途 | 主な設定項目 | 備考 |
+| --- | --- | --- |
+| 会話 | `AMICA_CHATBOT_BACKEND`, `AMICA_OLLAMA_MODEL`, `AMICA_OPENAI_MODEL` | 利用モデルのライセンスは各配布元に従います |
+| 画像認識 | `AMICA_VISION_BACKEND`, `AMICA_VISION_OLLAMA_MODEL` | 利用モデルのライセンスは各配布元に従います |
+| 音声合成 | `AMICA_TTS_BACKEND`, `PIPER_MODEL_URL`, `PIPER_CONFIG_URL` | 音声モデルのライセンスはランタイム本体と別です |
 
-## Voice Model Attribution
+公開リポジトリの既定値では、特定の音声モデル実体や学習済みモデルを配布しません。Piper / Style-Bert-VITS2 の音声モデルは、利用者が別途取得・配置してください。
 
-既定の Piper 音声モデルは `ayousanz/piper-plus-tsukuyomi-chan` で、モデルカード上は つくよみちゃんコーパス準拠です。商用利用自体は可能ですが、クレジット表記や公開形態ごとの条件確認が必要です。
+## Voice Model License Notes
 
-公開環境でこの音声を第三者に利用可能な形で提供する場合は、少なくとも以下の文面を公開前に確認できる場所へ掲載してください。
+音声モデルのクレジット表記や利用条件は、採用するモデルごとに異なります。このリポジトリは特定の音声モデル実体を配布しません。
+
+以下は、つくよみちゃんコーパス由来モデルを採用する場合の参考クレジット例です。
 
 > 本ソフトウェアの音声合成には、フリー素材キャラクター「つくよみちゃん」（© Rei Yumesaki）が無料公開している音声データを使用しています。
 >
@@ -229,9 +233,9 @@ cloudflared tunnel --url http://localhost:3000
 
 補足:
 
-- 有料提供時は、料金支払い前に確認できる場所にも同等の表記が必要です。
-- 政治的呼びかけ、人への攻撃的利用、生成音声の素材再配布などは追加条件または禁止事項があるため、必ず配布元規約を確認してください。
-- SBV2 のコードは AGPLv3 ですが、`model_assets` 配下の学習済み音声は別条件です。
+- 有料提供時や公開配布時の条件は、採用する音声モデルの配布元規約を確認してください。
+- つくよみちゃんコーパス由来モデルでは、クレジット表示や公開形態に関する条件があります。
+- Style-Bert-VITS2 のコードライセンスと、`model_assets` 配下の学習済み音声モデルの条件は別です。
 
 ## Notes
 
