@@ -130,14 +130,23 @@ Copy-Item .env.example .env
 
 最低限の見直し対象:
 
-- `AMICA_CHATBOT_BACKEND`
-- `AMICA_OLLAMA_URL`
-- `AMICA_OLLAMA_MODEL`
-- `INJECTION_ADMIN_USERNAME`
-- `INJECTION_ADMIN_PASSWORD`
-- `INJECTION_SESSION_SECRET`
-- `GOOGLE_OAUTH_CLIENT_ID`
-- `GOOGLE_OAUTH_CLIENT_SECRET`
+- `AMICA_CHATBOT_BACKEND`: 会話に使う接続先を選びます。`ollama` か `chatgpt` などをここで決めます
+- `AMICA_OLLAMA_URL`: Ollama を使う場合の接続先 URL です
+- `AMICA_OLLAMA_MODEL`: Ollama を使う場合のモデル名です
+- `INJECTION_ADMIN_USERNAME`: injection-tool 管理画面にログインするユーザー名です
+- `INJECTION_ADMIN_PASSWORD`: injection-tool 管理画面にログインするパスワードです
+- `INJECTION_SESSION_SECRET`: 管理画面のセッションを保護する秘密値です
+
+Google Workspace MCP を使う場合に追加で必要な項目:
+
+- `GOOGLE_OAUTH_CLIENT_ID`: Google Workspace MCP 用の OAuth クライアント ID です
+- `GOOGLE_OAUTH_CLIENT_SECRET`: Google Workspace MCP 用の OAuth クライアントシークレットです
+
+使い分けの目安:
+
+- OpenAI を使う場合は `AMICA_CHATBOT_BACKEND=chatgpt` と API キー系を設定します
+- Ollama を使う場合は `AMICA_CHATBOT_BACKEND=ollama` と `AMICA_OLLAMA_URL` / `AMICA_OLLAMA_MODEL` を設定します
+- Google Workspace MCP を使わない場合は OAuth 項目は後回しでも構いません
 
 ### 3. Start Development Stack
 

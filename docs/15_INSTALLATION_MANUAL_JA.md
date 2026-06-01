@@ -45,13 +45,22 @@ GPU で SBV2 を動かしたい場合の追加前提:
 `D:\ark-injection-ai-system\.env.example` を元に `D:\ark-injection-ai-system\.env` を作成します。
 
 最低限確認する項目:
-- `INJECTION_ADMIN_USERNAME`
-- `INJECTION_ADMIN_PASSWORD`
-- `INJECTION_SESSION_SECRET`
-- `AMICA_OLLAMA_URL`
-- `AMICA_OLLAMA_MODEL`
-- `SBV2_DEVICE`
-- `PIPER_DEVICE`
+- `INJECTION_ADMIN_USERNAME`: injection-tool 管理画面にログインするユーザー名です
+- `INJECTION_ADMIN_PASSWORD`: injection-tool 管理画面にログインするパスワードです
+- `INJECTION_SESSION_SECRET`: 管理画面のセッションを保護する秘密値です
+- `AMICA_OLLAMA_URL`: Ollama を使う場合の接続先 URL です
+- `AMICA_OLLAMA_MODEL`: Ollama を使う場合のモデル名です
+- `SBV2_DEVICE`: SBV2 を `cpu` と `cuda` のどちらで動かすかを決めます
+- `PIPER_DEVICE`: Piper を `cpu` と `cuda` のどちらで動かすかを決めます
+
+Google Workspace MCP を使う場合に追加で必要な項目:
+- `GOOGLE_OAUTH_CLIENT_ID`: Google Workspace MCP 用の OAuth クライアント ID です
+- `GOOGLE_OAUTH_CLIENT_SECRET`: Google Workspace MCP 用の OAuth クライアントシークレットです
+
+使い分けの目安:
+- OpenAI を使う場合は `AMICA_CHATBOT_BACKEND=chatgpt` と API キー系を設定します
+- Ollama を使う場合は `AMICA_CHATBOT_BACKEND=ollama` と `AMICA_OLLAMA_URL` / `AMICA_OLLAMA_MODEL` を設定します
+- Google Workspace MCP を使う場合は上記の OAuth 項目も設定します
 
 最初は以下を推奨します。
 
