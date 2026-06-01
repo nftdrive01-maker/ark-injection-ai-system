@@ -53,6 +53,20 @@ Important:
 
 ## Additional Notes
 
+### Default Runtime Model Notes
+
+The default Ark-i configuration currently points at the following runtime models:
+
+- Text chat model: `qwen2.5:7b`
+- Vision model: `llava`
+- Piper voice model: `ayousanz/piper-plus-tsukuyomi-chan`
+
+License notes for those defaults:
+
+- `qwen2.5:7b`: the upstream Qwen2.5 7B Instruct model is published under Apache-2.0.
+- `llava`: verify the exact pulled Ollama tag before redistribution or hosted commercial rollout. A representative upstream reference, `llava-hf/llava-1.5-7b-hf`, is published under the Llama 2 Community License.
+- `ayousanz/piper-plus-tsukuyomi-chan`: the model card states that its license follows the つくよみちゃんコーパス terms, which are separate from the Piper runtime license.
+
 ### Voice Models and Assets
 
 Voice models, avatar assets, learned weights, and downloadable artifacts may be licensed separately from the application code.
@@ -64,6 +78,14 @@ Before redistribution or commercial deployment, confirm the license of:
 - avatar assets
 - fonts
 - images and media
+
+For the default Piper voice model used by this repository, the practical requirement is not a blanket commercial prohibition but compliance with the つくよみちゃんコーパス conditions, including credit display and restrictions on some public use cases and redistribution patterns.
+
+Recommended attribution text for public software using the default Piper voice model:
+
+> 本ソフトウェアの音声合成には、フリー素材キャラクター「つくよみちゃん」（© Rei Yumesaki）が無料公開している音声データを使用しています。
+>
+> ■つくよみちゃんコーパス（CV.夢前黎） https://tyc.rei-yumesaki.net/material/corpus/
 
 ### Container Images and Service Dependencies
 
