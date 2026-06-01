@@ -57,6 +57,12 @@ flowchart LR
 
 スクリーンショット差し替えルールと追加候補は [docs/images/readme/README.md](docs/images/readme/README.md) にまとめています。
 
+## Demo Video
+
+[![Watch the demo on YouTube](https://img.youtube.com/vi/KkAgpVP2Bv8/hqdefault.jpg)](https://www.youtube.com/watch?v=KkAgpVP2Bv8)
+
+GitHub README 上では YouTube プレイヤーの直接埋め込みは使いにくいため、サムネイルクリックで動画を開く形にしています。
+
 ## Core Services
 
 基本スタックは Amica / injection-tool / mcp-server / SBV2(or Piper) / PostgreSQL / DBHub です。  
