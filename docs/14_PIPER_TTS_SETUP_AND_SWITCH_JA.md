@@ -25,15 +25,15 @@
 AMICA_TTS_BACKEND=piper
 AMICA_PIPER_URL=http://piper:8000
 PIPER_PORT=5001
-PIPER_MODEL_URL=https://huggingface.co/ayousanz/piper-plus-tsukuyomi-chan/resolve/main/tsukuyomi-chan-6lang-fp16.onnx
-PIPER_CONFIG_URL=https://huggingface.co/ayousanz/piper-plus-tsukuyomi-chan/resolve/main/config.json
-PIPER_DEFAULT_LANGUAGE=ja-en-zh-es-fr-pt
+PIPER_MODEL_URL=https://example.com/path/to/voice-model.onnx
+PIPER_CONFIG_URL=https://example.com/path/to/config.json
+PIPER_DEFAULT_LANGUAGE=ja
 PIPER_DEVICE=cpu
 PIPER_LENGTH_SCALE=1.0
 PIPER_NOISE_SCALE=0.667
 ```
 
-この資料では、例として `ayousanz/piper-plus-tsukuyomi-chan` を使っています。公開リポジトリ自体は当該モデルを同梱しません。
+公開リポジトリ自体は特定の音声モデルを同梱しません。
 
 管理固定の主なキー:
 
@@ -58,9 +58,9 @@ AMICA_MANAGED_CONFIG_KEYS=chatbot_backend,ollama_url,ollama_model,vision_backend
 ```env
 AMICA_TTS_BACKEND=piper
 AMICA_PIPER_URL=http://piper:8000
-PIPER_MODEL_URL=https://huggingface.co/ayousanz/piper-plus-tsukuyomi-chan/resolve/main/tsukuyomi-chan-6lang-fp16.onnx
-PIPER_CONFIG_URL=https://huggingface.co/ayousanz/piper-plus-tsukuyomi-chan/resolve/main/config.json
-PIPER_DEFAULT_LANGUAGE=ja-en-zh-es-fr-pt
+PIPER_MODEL_URL=<your-model-url>
+PIPER_CONFIG_URL=<your-config-url>
+PIPER_DEFAULT_LANGUAGE=ja
 PIPER_DEVICE=cpu
 PIPER_LENGTH_SCALE=1.0
 PIPER_NOISE_SCALE=0.667
@@ -132,13 +132,13 @@ Invoke-WebRequest -UseBasicParsing \
 
 成功すると `d:\piper\out\amica-piper-ja-test.wav` が生成されます。
 
-必要なら Piper の native エンドポイントを直接確認できます。
+必要なら Piper の native エンドポイントを直接確認できます。`language` パラメータは利用モデルに合わせて変更してください。
 
 ```powershell
 Invoke-WebRequest -UseBasicParsing \
   -Method GET \
   -OutFile d:\piper\out\official-piper-ja-test.wav \
-  -Uri "http://localhost:5001/synthesize?text=%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%E3%80%81Piper%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E3%81%99%E3%80%82&language=ja-en-zh-es-fr-pt&speaker_id=0&noise_scale=0.667&length_scale=1.5&noise_w=0.8"
+  -Uri "http://localhost:5001/synthesize?text=%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%E3%80%81Piper%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E3%81%99%E3%80%82&language=ja&speaker_id=0&noise_scale=0.667&length_scale=1.5&noise_w=0.8"
 ```
 
 ### 3. 実アプリ確認
@@ -170,7 +170,7 @@ docker compose up -d --force-recreate sbv2 amica
 
 ## 公式 Piper 実装の注意点
 
-- 例として使っている `ayousanz/piper-plus-tsukuyomi-chan` は `piper-plus` 専用モデルです。upstream Piper 系ランタイムとは互換ではありません
+- 利用する音声モデルが `piper-plus` 専用か、upstream Piper 互換かは配布元の説明を確認してください
 - そのため `ghcr.io/ayutaz/piper-plus/python-inference:dev` の公式 runtime を使います
 - Amica は [amica/src/app/api/piper/route.ts](../amica/src/app/api/piper/route.ts)（amica-nftdrive のローカル配置先）から `GET /synthesize` へ中継します
 - PowerShell から日本語を直接テストする場合は UTF-8 バイトで送るほうが確実です
