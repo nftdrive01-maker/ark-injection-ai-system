@@ -83,6 +83,41 @@ docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 - Amica: http://localhost:3000
 - injection-tool: http://localhost:4001
 
+### 4. 本番起動に必要な関連リポジトリ
+
+`docker-compose.prod.yml` は公開イメージ参照ではなく、相対パスの build context / volume を使います。  
+そのため、本番相当の別環境で起動する場合も、少なくとも以下のリポジトリやローカル配置が必要です。
+
+- `../amica` : https://github.com/nftdrive01-maker/amica-nftdrive
+- `../injection-tool` : https://github.com/nftdrive01-maker/ark-injection-tool
+- `../mcp-server` : https://github.com/nftdrive01-maker/ark-mcp-server
+- `../sbv2/Style-Bert-VITS2` : https://github.com/nftdrive01-maker/Style-Bert-VITS2-nftdrive
+- `../google-workspace-mcp` : Google Workspace MCP 用ローカル配置
+- `../estat-mcp` : e-Stat MCP 用ローカル配置
+- `../piper` : Piper モデル/出力用ローカル配置
+
+推奨配置例:
+
+```text
+workspace/
+	ark-injection-ai-system/
+	amica/
+	injection-tool/
+	mcp-server/
+	sbv2/Style-Bert-VITS2/
+	google-workspace-mcp/
+	estat-mcp/
+	piper/
+```
+
+### 5. 本番起動
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+`google-workspace-mcp` を使う場合は、`ark-injection-ai-system/google-workspace-mcp-credentials` に OAuth credential を配置してください。
+
 ## 外部公開
 
 フロントアプリの一時公開には Cloudflare Quick Tunnel を使えます。
@@ -109,6 +144,8 @@ cloudflared tunnel --url http://localhost:3000
 
 - Amica fork: https://github.com/nftdrive01-maker/amica-nftdrive
 - Amica fork の既定運用ブランチ: feat-add-injection
+- injection-tool fork: https://github.com/nftdrive01-maker/ark-injection-tool
+- mcp-server fork: https://github.com/nftdrive01-maker/ark-mcp-server
 - Style-Bert-VITS2 fork: https://github.com/nftdrive01-maker/Style-Bert-VITS2-nftdrive
 
 このリポジトリの Compose は `../amica` のローカル checkout を bind mount するため、実際に参照される内容は GitHub の `master` ではなくローカルで checkout しているブランチです。NFTDrive 運用では `feat-add-injection` を前提にしています。
