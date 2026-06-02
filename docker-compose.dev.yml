@@ -7,11 +7,20 @@ services:
       - -c
       - |
         LOCKFILE_HASH_FILE=node_modules/.package-lock.sha256
-        CURRENT_HASH="$$(sha256sum package-lock.json | awk '{print $$1}')"
-        STORED_HASH="$$(cat "$$LOCKFILE_HASH_FILE" 2>/dev/null || true)"
-        if [ ! -d node_modules ] || [ -z "$$(ls -A node_modules 2>/dev/null)" ] || [ "$$CURRENT_HASH" != "$$STORED_HASH" ]; then
-          npm ci
-          printf "%s" "$$CURRENT_HASH" > "$$LOCKFILE_HASH_FILE"
+        if [ -f package-lock.json ]; then
+          CURRENT_HASH="$$(sha256sum package-lock.json | awk '{print $$1}')"
+          STORED_HASH="$$(cat "$$LOCKFILE_HASH_FILE" 2>/dev/null || true)"
+        else
+          CURRENT_HASH=""
+          STORED_HASH="__no_lockfile__"
+        fi
+        if [ ! -d node_modules ] || [ -z "$$(ls -A node_modules 2>/dev/null)" ] || [ ! -x node_modules/.bin/next ] || [ "$$CURRENT_HASH" != "$$STORED_HASH" ]; then
+          if [ -f package-lock.json ]; then
+            npm ci
+            printf "%s" "$$CURRENT_HASH" > "$$LOCKFILE_HASH_FILE"
+          else
+            npm install
+          fi
         fi
         npm run dev -- --hostname 0.0.0.0 --port 3000
     environment:
@@ -30,11 +39,20 @@ services:
       - -c
       - |
         LOCKFILE_HASH_FILE=node_modules/.package-lock.sha256
-        CURRENT_HASH="$$(sha256sum package-lock.json | awk '{print $$1}')"
-        STORED_HASH="$$(cat "$$LOCKFILE_HASH_FILE" 2>/dev/null || true)"
-        if [ ! -d node_modules ] || [ -z "$$(ls -A node_modules 2>/dev/null)" ] || [ "$$CURRENT_HASH" != "$$STORED_HASH" ]; then
-          npm ci
-          printf "%s" "$$CURRENT_HASH" > "$$LOCKFILE_HASH_FILE"
+        if [ -f package-lock.json ]; then
+          CURRENT_HASH="$$(sha256sum package-lock.json | awk '{print $$1}')"
+          STORED_HASH="$$(cat "$$LOCKFILE_HASH_FILE" 2>/dev/null || true)"
+        else
+          CURRENT_HASH=""
+          STORED_HASH="__no_lockfile__"
+        fi
+        if [ ! -d node_modules ] || [ -z "$$(ls -A node_modules 2>/dev/null)" ] || [ ! -x node_modules/.bin/next ] || [ "$$CURRENT_HASH" != "$$STORED_HASH" ]; then
+          if [ -f package-lock.json ]; then
+            npm ci
+            printf "%s" "$$CURRENT_HASH" > "$$LOCKFILE_HASH_FILE"
+          else
+            npm install
+          fi
         fi
         npm run dev -- --hostname 0.0.0.0
     environment:
@@ -58,7 +76,8 @@ services:
       - ../mcp-server:/app
 
   sbv2:
-    image: ark-injection-ai-system-sbv2
+    profiles:
+      - sbv2
     build:
       context: ../sbv2/Style-Bert-VITS2
       dockerfile: Dockerfile.infer
