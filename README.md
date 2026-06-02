@@ -117,9 +117,9 @@ bash ./scripts/setup-workspace.sh -ChatBackend chatgpt -SkipGoogleWorkspaceMcp -
 - 既定では、現在の `ark-injection-ai-system` ディレクトリの親フォルダを workspace ルートとして扱います
 - `-ChatBackend chatgpt` を指定すると OpenAI 系、`-ChatBackend ollama` を指定すると Ollama 系の初期値で `.env` を準備します
 - `-SkipGoogleWorkspaceMcp` と `-SkipEstatMcp` は clone 対象と生成する `.code-workspace` から該当リポジトリを外します
-- WSL / Linux でこの bootstrap を使う場合は `pwsh` が必要です
+- WSL / Linux では `bash ./scripts/setup-workspace.sh ...` をそのまま使えます
 - 音声モデル、アバター素材、キャラクターモデル、秘密情報はこのスクリプトでは取得しません
-- `-StartStack` は Amica / injection-tool / mcp-server / SBV2 の基本スタックを起動します。`google-workspace-mcp` と `estat-mcp` は optional profile なので、この起動には含まれません
+- `-StartStack` は Amica / injection-tool / mcp-server / SBV2 の基本スタックを起動します。WSL / Linux では bash スクリプト内から `docker compose` を実行します
 
 初回起動の見え方について:
 

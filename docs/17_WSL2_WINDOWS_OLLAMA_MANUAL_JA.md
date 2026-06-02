@@ -122,7 +122,6 @@ Invoke-WebRequest -UseBasicParsing http://127.0.0.1:11434/api/tags
 - Docker Engine
 - docker compose plugin
 - curl
-- PowerShell 7 (`pwsh`。bootstrap スクリプトを使う場合)
 
 例:
 
@@ -151,7 +150,8 @@ bash ./scripts/setup-workspace.sh -ChatBackend ollama -SkipGoogleWorkspaceMcp -S
 
 注意:
 - bash では `./scripts/setup-workspace.ps1` や `.\scripts\setup-workspace.ps1` はそのまま実行できません
-- WSL では `bash ./scripts/setup-workspace.sh` か `pwsh -File ./scripts/setup-workspace.ps1 ...` を使ってください
+- WSL では `bash ./scripts/setup-workspace.sh` を使ってください
+- `setup-workspace.sh` はネイティブな bash 実装なので、PowerShell 7 は不要です
 
 手動で clone する場合は次のとおりです。
 
