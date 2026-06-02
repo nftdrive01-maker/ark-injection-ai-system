@@ -197,6 +197,20 @@ cp .env.example .env
 - `INJECTION_OLLAMA_URL` も同じ到達先に揃える
 - 導入先で到達先が固定できるまで `host.docker.internal` を前提にしない
 
+まず、WSL2 から見た Windows 側の到達先 IP を確認します。
+
+```bash
+HOST_IP=$(ip route | awk '/default/ {print $3}')
+echo "$HOST_IP"
+curl "http://$HOST_IP:11434/api/tags"
+```
+
+期待値:
+- `echo` で Windows 側到達先 IP が表示される
+- `curl` で Ollama の tags API が JSON を返す
+
+`curl` が通ったら、その IP を以下の URL に使います。
+
 例:
 
 ```env
