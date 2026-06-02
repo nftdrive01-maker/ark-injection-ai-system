@@ -147,6 +147,7 @@ function Ensure-EnvFile {
         Set-EnvValue -Path $envPath -Key 'AMICA_OPENAI_MODEL' -Value 'gpt-4o-mini'
     } else {
         Set-EnvValue -Path $envPath -Key 'AMICA_OLLAMA_URL' -Value 'http://host.docker.internal:11434'
+        Set-EnvValue -Path $envPath -Key 'INJECTION_OLLAMA_URL' -Value 'http://host.docker.internal:11434'
         Set-EnvValue -Path $envPath -Key 'AMICA_OLLAMA_MODEL' -Value 'qwen2.5:7b'
     }
 }

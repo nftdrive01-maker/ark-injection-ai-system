@@ -103,7 +103,7 @@ services:
       INJECTION_SESSION_SECRET: ${INJECTION_SESSION_SECRET:-}
       INJECTION_AMICA_URL: http://amica:3000
       INJECTION_STYLEBERTVITS2_URL: http://sbv2:5000
-      INJECTION_OLLAMA_URL: http://host.docker.internal:11434
+      INJECTION_OLLAMA_URL: ${INJECTION_OLLAMA_URL:-http://host.docker.internal:11434}
       INJECTION_OPENAI_BASE_URL: ${AMICA_OPENAI_URL:-https://api.openai.com}
       INJECTION_OPENAI_API_KEY: ${AMICA_OPENAI_APIKEY:-}
       INJECTION_MCP_ROUTER_TIMEOUT: ${INJECTION_MCP_ROUTER_TIMEOUT:-30000}
@@ -126,8 +126,6 @@ services:
 
   sbv2-init:
     container_name: ark-sbv2-init
-    profiles:
-      - sbv2
     build:
       context: ../sbv2/Style-Bert-VITS2
       dockerfile: Dockerfile.infer
@@ -143,8 +141,6 @@ services:
 
   sbv2:
     container_name: ark-sbv2
-    profiles:
-      - sbv2
     build:
       context: ../sbv2/Style-Bert-VITS2
       dockerfile: Dockerfile.infer

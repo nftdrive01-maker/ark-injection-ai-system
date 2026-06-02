@@ -26,6 +26,7 @@
 | AMICA_DEFAULT_SHOW_CHAT_MODE | true | 初期表示モード | UI 方針に応じて調整 |
 | AMICA_ASYNC_TTS_MODE | false | AI メッセージ表示を TTS 取得より先行させるか | true で表示先行、false で従来動作 |
 | AMICA_OLLAMA_URL | http://host.docker.internal:11434 | Ollama 接続先 | Docker から見える URL である必要あり |
+| INJECTION_OLLAMA_URL | http://host.docker.internal:11434 | injection-tool から見た Ollama 接続先 | WSL2 などで Amica と別経路調整が必要なときに使う |
 | AMICA_OLLAMA_MODEL | qwen2.5:7b | テキスト会話用 Ollama モデル | Ollama 側に pull 済みである必要あり |
 | AMICA_VISION_BACKEND | vision_ollama | 画像認識の既定 backend | vision_ollama / vision_openai / vision_llamacpp を想定 |
 | AMICA_VISION_OLLAMA_URL | http://host.docker.internal:11434 | 画像認識用 Ollama 接続先 | 未分離運用では AMICA_OLLAMA_URL と同じでよい |
@@ -41,6 +42,7 @@
 - `AMICA_MANAGED_CONFIG_KEYS` に含めた設定は、Amica のクライアント設定画面から変更できません
 - Vision を Ollama で一括管理する場合は `AMICA_VISION_BACKEND=vision_ollama` を基本にし、必要なら `AMICA_VISION_OLLAMA_URL` と `AMICA_VISION_OLLAMA_MODEL` を合わせて指定します
 - テキスト会話と画像認識で別の Ollama サーバーを使いたい場合は、`AMICA_OLLAMA_URL` と `AMICA_VISION_OLLAMA_URL` を分けて設定します
+- injection-tool が参照する Ollama 接続先は `INJECTION_OLLAMA_URL` で上書きできます
 - これらの環境変数を変更した後は、`docker compose up -d --force-recreate amica` でコンテナ再作成が必要です
 
 ## TTS 関連

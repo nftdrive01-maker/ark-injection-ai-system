@@ -173,6 +173,7 @@ cp .env.example .env
 設定方針:
 - `AMICA_OLLAMA_URL` は WSL2 から見た Windows 側 Ollama API の URL にする
 - `AMICA_VISION_OLLAMA_URL` も同じ URL に揃える
+- `INJECTION_OLLAMA_URL` も同じ到達先に揃える
 - 導入先で到達先が固定できるまで `host.docker.internal` を前提にしない
 
 例:
@@ -180,6 +181,7 @@ cp .env.example .env
 ```env
 AMICA_CHATBOT_BACKEND=ollama
 AMICA_OLLAMA_URL=http://<windows-host-reachable-address>:11434
+INJECTION_OLLAMA_URL=http://<windows-host-reachable-address>:11434
 AMICA_OLLAMA_MODEL=qwen3.5:9b
 AMICA_VISION_BACKEND=vision_ollama
 AMICA_VISION_OLLAMA_URL=http://<windows-host-reachable-address>:11434
@@ -188,9 +190,8 @@ AMICA_TTS_BACKEND=piper
 ```
 
 補足:
-- 現行 compose には `INJECTION_OLLAMA_URL` の固定値箇所があります
-- この文書は手順書のみであり、compose 自体の修正は行いません
-- そのため、導入先では injection-tool 側の Ollama 疎通も別途確認してください
+- `INJECTION_OLLAMA_URL` を設定すれば、injection-tool も同じ Windows 側 Ollama API を参照できます
+- それでも疎通しない場合は Windows Firewall と listen address を確認してください
 
 ## 9. 起動手順
 

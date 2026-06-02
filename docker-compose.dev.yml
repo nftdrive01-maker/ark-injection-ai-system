@@ -76,8 +76,6 @@ services:
       - ../mcp-server:/app
 
   sbv2:
-    profiles:
-      - sbv2
     build:
       context: ../sbv2/Style-Bert-VITS2
       dockerfile: Dockerfile.infer

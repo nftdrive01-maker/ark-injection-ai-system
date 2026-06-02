@@ -114,6 +114,7 @@ Google Workspace MCP や e-Stat MCP をまだ使わない場合は、clone 対�
 - ただし音声を出すには、Piper または Style-Bert-VITS2 の音声モデルを別途用意する必要があります
 - 公開テンプレートの `.env.example` では `PIPER_MODEL_URL` と `PIPER_CONFIG_URL` は空です。Piper を使う場合は利用する音声モデルに合わせて設定してください
 - 音声モデルの設定例と切り替え手順は [14_PIPER_TTS_SETUP_AND_SWITCH_JA.md](./docs/14_PIPER_TTS_SETUP_AND_SWITCH_JA.md) と [16_MODEL_SWITCH_MANUAL_JA.md](./docs/16_MODEL_SWITCH_MANUAL_JA.md) を参照してください
+- SBV2 自体の初回準備、CPU/CUDA 切替、起動確認、トラブル切り分けは [SBV2_CPU_CUDA_SWITCH_MANUAL_JA.md](./SBV2_CPU_CUDA_SWITCH_MANUAL_JA.md) を参照してください
 
 optional MCP も起動したい場合:
 
