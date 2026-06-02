@@ -1,0 +1,35 @@
+﻿{
+    "folders":  [
+                    {
+                        "path":  "ark-injection-ai-system"
+                    },
+                    {
+                        "path":  "amica"
+                    },
+                    {
+                        "path":  "injection-tool"
+                    },
+                    {
+                        "path":  "mcp-server"
+                    },
+                    {
+                        "path":  "google-workspace-mcp"
+                    },
+                    {
+                        "path":  "estat-mcp"
+                    },
+                    {
+                        "path":  "piper"
+                    },
+                    {
+                        "path":  "sbv2/Style-Bert-VITS2"
+                    }
+                ],
+    "settings":  {
+                     "files.exclude":  {
+                                           "**/__pycache__":  true,
+                                           "**/.git":  true,
+                                           "**/.pytest_cache":  true
+                                       }
+                 }
+}

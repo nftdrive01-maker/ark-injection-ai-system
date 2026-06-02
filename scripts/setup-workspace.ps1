@@ -15,7 +15,15 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 $workspaceRoot = Split-Path -Parent $repoRoot
 $envExamplePath = Join-Path $repoRoot '.env.example'
 $envPath = Join-Path $repoRoot '.env'
-$workspaceFilePath = Join-Path $workspaceRoot 'ark-injection-ai-system.code-workspace'
+
+# workspaceRoot がドライブルート (例: C:\) の場合は repoRoot 直下に保存する
+$workspaceRootResolved = $workspaceRoot.TrimEnd('\')
+$isDriveRoot = $workspaceRootResolved -match '^[A-Za-z]:$'
+if ($isDriveRoot) {
+    $workspaceFilePath = Join-Path $repoRoot 'ark-injection-ai-system.code-workspace'
+} else {
+    $workspaceFilePath = Join-Path $workspaceRoot 'ark-injection-ai-system.code-workspace'
+}
 
 $allRepositories = @(
     [pscustomobject]@{ Name = 'amica'; RelativePath = 'amica'; Url = 'https://github.com/nftdrive01-maker/amica-nftdrive.git' },
@@ -81,7 +89,9 @@ function Ensure-RepositoryPresent {
             throw ('Target path exists and is not an empty git repository: ' + $targetPath)
         }
     } elseif (-not $DryRun) {
-        New-Item -ItemType Directory -Path $targetParent -Force | Out-Null
+        if (-not (Test-Path -LiteralPath $targetParent)) {
+            New-Item -ItemType Directory -Path $targetParent -Force | Out-Null
+        }
     }
 
     Write-Host ('Cloning ' + $Repository.Name + ' into ' + $targetPath)
@@ -95,7 +105,7 @@ function Set-EnvValue {
         [string]$Value
     )
 
-    $lines = Get-Content -LiteralPath $Path
+    $lines = Get-Content -LiteralPath $Path -Encoding utf8
     $updated = $false
 
     for ($index = 0; $index -lt $lines.Count; $index++) {
