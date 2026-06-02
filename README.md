@@ -94,10 +94,22 @@ cd ark-injection-ai-system
 .\scripts\setup-workspace.ps1 -ChatBackend chatgpt
 ```
 
+WSL / Linux の bash から実行する場合は、PowerShell 記法の `./scripts/setup-workspace.ps1` や `.\scripts\setup-workspace.ps1` ではなくシェルラッパーを使ってください。
+
+```bash
+git clone https://github.com/nftdrive01-maker/ark-injection-ai-system.git
+cd ark-injection-ai-system
+bash ./scripts/setup-workspace.sh -ChatBackend chatgpt
+```
+
 Google Workspace MCP や e-Stat MCP をまだ使わない場合は、clone 対象と workspace 登録から外せます。
 
 ```powershell
 .\scripts\setup-workspace.ps1 -ChatBackend chatgpt -SkipGoogleWorkspaceMcp -SkipEstatMcp
+```
+
+```bash
+bash ./scripts/setup-workspace.sh -ChatBackend chatgpt -SkipGoogleWorkspaceMcp -SkipEstatMcp
 ```
 
 補足:
@@ -105,6 +117,7 @@ Google Workspace MCP や e-Stat MCP をまだ使わない場合は、clone 対�
 - 既定では、現在の `ark-injection-ai-system` ディレクトリの親フォルダを workspace ルートとして扱います
 - `-ChatBackend chatgpt` を指定すると OpenAI 系、`-ChatBackend ollama` を指定すると Ollama 系の初期値で `.env` を準備します
 - `-SkipGoogleWorkspaceMcp` と `-SkipEstatMcp` は clone 対象と生成する `.code-workspace` から該当リポジトリを外します
+- WSL / Linux でこの bootstrap を使う場合は `pwsh` が必要です
 - 音声モデル、アバター素材、キャラクターモデル、秘密情報はこのスクリプトでは取得しません
 - `-StartStack` は Amica / injection-tool / mcp-server / SBV2 の基本スタックを起動します。`google-workspace-mcp` と `estat-mcp` は optional profile なので、この起動には含まれません
 

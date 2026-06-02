@@ -122,6 +122,7 @@ Invoke-WebRequest -UseBasicParsing http://127.0.0.1:11434/api/tags
 - Docker Engine
 - docker compose plugin
 - curl
+- PowerShell 7 (`pwsh`。bootstrap スクリプトを使う場合)
 
 例:
 
@@ -133,6 +134,26 @@ sudo apt install -y git curl ca-certificates
 Docker Engine と compose plugin の導入は、導入先の社内標準に合わせてください。
 
 ## 7. リポジトリ配置
+
+bootstrap スクリプトを使う場合:
+
+```bash
+git clone https://github.com/nftdrive01-maker/ark-injection-ai-system.git
+cd ark-injection-ai-system
+bash ./scripts/setup-workspace.sh -ChatBackend ollama
+```
+
+Google Workspace MCP と e-Stat MCP をまだ使わない場合:
+
+```bash
+bash ./scripts/setup-workspace.sh -ChatBackend ollama -SkipGoogleWorkspaceMcp -SkipEstatMcp
+```
+
+注意:
+- bash では `./scripts/setup-workspace.ps1` や `.\scripts\setup-workspace.ps1` はそのまま実行できません
+- WSL では `bash ./scripts/setup-workspace.sh` か `pwsh -File ./scripts/setup-workspace.ps1 ...` を使ってください
+
+手動で clone する場合は次のとおりです。
 
 WSL2 側で次のように clone します。
 
