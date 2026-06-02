@@ -140,6 +140,7 @@ WSL2 ベースで導入したい場合:
 - Windows 版 Ollama を残して他を WSL2 で動かす手順は [17_WSL2_WINDOWS_OLLAMA_MANUAL_JA.md](./docs/17_WSL2_WINDOWS_OLLAMA_MANUAL_JA.md)
 - Ollama も含めて WSL2 側へ寄せる手順は [18_FULL_WSL2_INSTALLATION_MANUAL_JA.md](./docs/18_FULL_WSL2_INSTALLATION_MANUAL_JA.md)
 - Windows 版 Ollama を使う場合、WSL 側から Windows ホストの到達先 IP を調べるには次を実行します
+- WSL で `docker compose -f ...` 実行時に `unknown shorthand flag: 'f' in -f` が出る場合は、compose plugin 未導入です。`docker compose version` を確認し、必要なら plugin を導入してください
 
 ```bash
 HOST_IP=$(ip route | awk '/default/ {print $3}')

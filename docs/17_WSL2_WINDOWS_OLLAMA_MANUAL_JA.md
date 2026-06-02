@@ -123,6 +123,19 @@ Invoke-WebRequest -UseBasicParsing http://127.0.0.1:11434/api/tags
 - docker compose plugin
 - curl
 
+確認コマンド:
+
+```bash
+docker compose version
+```
+
+`unknown shorthand flag: 'f' in -f` のように表示される場合は、`docker compose` サブコマンドが使えておらず、compose plugin が未導入です。
+
+対処方針:
+- まず `docker compose version` が通る状態にする
+- 一時的に `docker-compose version` が通る環境なら、検証中だけ `docker-compose -f ...` を使ってもよい
+- 今後の手順書どおりに進めるには compose plugin の導入を優先する
+
 例:
 
 ```bash
@@ -240,6 +253,13 @@ WSL2 側:
 ```bash
 cd ~/workspace/ark-injection-ai-system
 docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+```
+
+もし `docker compose` が使えず、`docker-compose version` は通る場合の暫定代替:
+
+```bash
+cd ~/workspace/ark-injection-ai-system
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 ```
 
 optional MCP も起動したい場合:
