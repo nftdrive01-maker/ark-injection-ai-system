@@ -52,14 +52,14 @@ flowchart LR
 		I --> P
 ```
 
+MCP 連携の詳細な流れは [docs/01_SYSTEM_OVERVIEW_JA.md](./docs/01_SYSTEM_OVERVIEW_JA.md) にまとめています。
+
 
 ## Screenshots
 
 | Amica UI | Domain / Knowledge Admin |
 | --- | --- |
 | ![Amica UI](docs/images/readme/amica-ui.png) | ![Domain and knowledge admin](docs/images/readme/admin-knowledge.png) |
-
-スクリーンショット差し替えルールと追加候補は [docs/images/readme/README.md](docs/images/readme/README.md) にまとめています。
 
 ## Demo Video
 

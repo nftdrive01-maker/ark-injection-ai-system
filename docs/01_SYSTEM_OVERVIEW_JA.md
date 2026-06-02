@@ -6,6 +6,45 @@ ark-injection-ai-system は、会話 UI、知識注入管理、MCP 連携、音�
 
 このシステムの中核は、フロントアプリを会話フロントエンド、injection-tool を知識注入と管理画面、MCP サーバー群を外部データ接続層として組み合わせている点にあります。ユーザーはフロントアプリから自然言語で対話し、管理者は injection-tool でドメインごとの知識、MCP サーバー、公開設定、レート制限、Cloudflare トンネルなどを制御できます。
 
+### MCP 連携フロー
+Amica 側の入力から MCP 応答までの順番は、次の通りです。
+
+```mermaid
+flowchart TD
+  U[User input] --> C1[Chat.receiveMessageFromUser()]
+  C1 --> C2[Interrupt current stream / audio]
+  C2 --> C3[Resolve domainId / sessionId]
+  C3 --> I1[fetchInjectedContext()]
+  I1 --> I2[injection-tool /api/intercept]
+  I2 --> M1[MCP judgment in injection-tool]
+  M1 --> M2[Call mcp-server if needed]
+  M2 --> I3[Return injectedSystemPrompt / userContext / metadata]
+  I3 --> C4{chronicleTriggered?}
+
+  C4 -- Yes --> CH1[Build chronicle response]
+  CH1 --> CH2[Show chronicle block]
+  CH2 --> CH3[TTS reaction]
+  CH3 --> END1[Return early]
+
+  C4 -- No --> C5[Set pendingMcpInfo if mcpUsed]
+  C5 --> C6[Compose final system prompt]
+  C6 --> C7[Make messages array]
+  C7 --> L1[LLM backend]
+  L1 --> L2[Stream response]
+  L2 --> O1[Update chat UI]
+  L2 --> O2[Queue TTS]
+  O1 --> END2[Done]
+  O2 --> END2
+```
+
+要点:
+- ユーザー入力はまず `Chat.receiveMessageFromUser()` に入ります。
+- `Amica` は `domainId` と `sessionId` を解決したあと、`fetchInjectedContext()` で injection-tool に文脈取得を依頼します。
+- injection-tool 側がドメイン設定や紐付いた MCP を判断し、必要なら `mcp-server` を呼びます。
+- 返却された `injectedSystemPrompt` と `metadata` を使って、`Amica` 側で最終的な system prompt を組み直します。
+- `chronicleTriggered` が立った場合は、LLM に進む前に専用の応答ルートで返します。
+- それ以外は通常の LLM 応答に進み、UI 表示と TTS に流れます。
+
 主な特徴:
 - 会話 UI と管理 UI を分離した fail-open 構成
 - ドメインごとに知識、外部連携、見た目、音声設定を切り替え可能

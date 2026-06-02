@@ -249,7 +249,13 @@ cp .env.example .env
 - `INJECTION_OLLAMA_URL` も同じ到達先に揃える
 - 導入先で到達先が固定できるまで `host.docker.internal` を前提にしない
 
-まず、WSL2 から見た Windows 側の到達先 IP を確認します。
+まず、WSL2 から見える Windows 側の到達先 IP を確認します。
+
+```bash
+ip route | awk '/default/ {print $3}'
+```
+
+この 1 行で表示された IP を `HOST_IP` として使えます。`host.docker.internal` が期待どおりに解決しない環境では、この方法が最も確実です。
 
 ```bash
 HOST_IP=$(ip route | awk '/default/ {print $3}')

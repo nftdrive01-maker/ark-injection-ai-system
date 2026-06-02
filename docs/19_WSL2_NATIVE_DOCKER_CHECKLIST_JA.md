@@ -141,6 +141,7 @@ docker logs ark-injection-tool --tail 100
 ### `host.docker.internal` が通らない
 
 - WSL ネイティブ Docker ではそのまま通る前提にしない
+- WSL2 内で Windows ホスト IP をその場で確認したいときは、`ip route | awk '/default/ {print $3}'` を実行する
 - `HOST_IP=$(ip route | awk '/default/ {print $3}')` で取得した IP を使う
 
 ### bootstrap は成功したのに起動しない
