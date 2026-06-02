@@ -88,13 +88,7 @@ flowchart LR
 
 このリポジトリ自体を先に clone したあと、関連リポジトリの clone、`.env` の初期生成、VS Code workspace ファイル作成をまとめて行うには、次のスクリプトを使えます。
 
-```powershell
-git clone https://github.com/nftdrive01-maker/ark-injection-ai-system.git
-cd ark-injection-ai-system
-.\scripts\setup-workspace.ps1 -ChatBackend chatgpt
-```
-
-WSL / Linux の bash から実行する場合は、PowerShell 記法の `./scripts/setup-workspace.ps1` や `.\scripts\setup-workspace.ps1` ではなくシェルラッパーを使ってください。
+推奨: WSL2 / Linux の bash から実行
 
 ```bash
 git clone https://github.com/nftdrive01-maker/ark-injection-ai-system.git
@@ -102,14 +96,22 @@ cd ark-injection-ai-system
 bash ./scripts/setup-workspace.sh -ChatBackend chatgpt
 ```
 
-Google Workspace MCP や e-Stat MCP をまだ使わない場合は、clone 対象と workspace 登録から外せます。
+Windows PowerShell から実行する場合:
 
 ```powershell
-.\scripts\setup-workspace.ps1 -ChatBackend chatgpt -SkipGoogleWorkspaceMcp -SkipEstatMcp
+git clone https://github.com/nftdrive01-maker/ark-injection-ai-system.git
+cd ark-injection-ai-system
+.\scripts\setup-workspace.ps1 -ChatBackend chatgpt
 ```
+
+Google Workspace MCP や e-Stat MCP をまだ使わない場合は、clone 対象と workspace 登録から外せます。
 
 ```bash
 bash ./scripts/setup-workspace.sh -ChatBackend chatgpt -SkipGoogleWorkspaceMcp -SkipEstatMcp
+```
+
+```powershell
+.\scripts\setup-workspace.ps1 -ChatBackend chatgpt -SkipGoogleWorkspaceMcp -SkipEstatMcp
 ```
 
 補足:
@@ -131,15 +133,19 @@ bash ./scripts/setup-workspace.sh -ChatBackend chatgpt -SkipGoogleWorkspaceMcp -
 
 optional MCP も起動したい場合:
 
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml --profile google-workspace-mcp --profile estat-mcp up -d --build
+```
+
 ```powershell
 .\scripts\dev-up-container-sbv2.ps1 -Build -IncludeGoogleWorkspaceMcp -IncludeEstatMcp
 ```
 
 WSL2 ベースで導入したい場合:
 
-- Windows 版 Ollama を残して他を WSL2 で動かす手順は [17_WSL2_WINDOWS_OLLAMA_MANUAL_JA.md](./docs/17_WSL2_WINDOWS_OLLAMA_MANUAL_JA.md)
+- まず [19_WSL2_NATIVE_DOCKER_CHECKLIST_JA.md](./docs/19_WSL2_NATIVE_DOCKER_CHECKLIST_JA.md) を実施（最短チェック）
 - Ollama も含めて WSL2 側へ寄せる手順は [18_FULL_WSL2_INSTALLATION_MANUAL_JA.md](./docs/18_FULL_WSL2_INSTALLATION_MANUAL_JA.md)
-- WSL2 ネイティブ Docker 導入時の最短チェックは [19_WSL2_NATIVE_DOCKER_CHECKLIST_JA.md](./docs/19_WSL2_NATIVE_DOCKER_CHECKLIST_JA.md)
+- Windows 版 Ollama を残して他を WSL2 で動かす手順は [17_WSL2_WINDOWS_OLLAMA_MANUAL_JA.md](./docs/17_WSL2_WINDOWS_OLLAMA_MANUAL_JA.md)
 - Windows 版 Ollama を使う場合、WSL 側から Windows ホストの到達先 IP を調べるには次を実行します
 - WSL で `docker compose -f ...` 実行時に `unknown shorthand flag: 'f' in -f` が出る場合は、compose plugin 未導入です。`docker compose version` を確認し、必要なら plugin を導入してください
 
@@ -195,13 +201,22 @@ curl "http://$HOST_IP:11434/api/tags"
 
 ### 1. Prerequisites
 
-- Docker Desktop
-- Docker Compose
+- Docker Engine
+- docker compose plugin
 - 必要に応じて Ollama または OpenAI 互換 API
+
+補足:
+
+- 推奨は WSL2 ネイティブ Docker（Docker Desktop なし）
+- Windows + Docker Desktop でも動作可能ですが、環境差が出やすいため WSL2 手順を優先してください
 
 ### 2. Prepare `.env`
 
 `.env.example` を `.env` にコピーして必要な値を設定します。
+
+```bash
+cp .env.example .env
+```
 
 ```powershell
 Copy-Item .env.example .env
@@ -228,6 +243,10 @@ Google Workspace MCP を使う場合に追加で必要な項目:
 - Google Workspace MCP を使わない場合は OAuth 項目は後回しでも構いません
 
 ### 3. Start Development Stack
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+```
 
 ```powershell
 docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
@@ -268,6 +287,10 @@ workspace/
 この並びを手作業で作る代わりに、`ark-injection-ai-system` を clone したあとで `scripts/setup-workspace.ps1` を使う方法もあります。
 
 ### 5. Start Production Stack
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
 
 ```powershell
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
