@@ -117,6 +117,11 @@ optional MCP も起動したい場合:
 .\scripts\dev-up-container-sbv2.ps1 -Build -IncludeGoogleWorkspaceMcp -IncludeEstatMcp
 ```
 
+WSL2 ベースで導入したい場合:
+
+- Windows 版 Ollama を残して他を WSL2 で動かす手順は [17_WSL2_WINDOWS_OLLAMA_MANUAL_JA.md](./docs/17_WSL2_WINDOWS_OLLAMA_MANUAL_JA.md)
+- Ollama も含めて WSL2 側へ寄せる手順は [18_FULL_WSL2_INSTALLATION_MANUAL_JA.md](./docs/18_FULL_WSL2_INSTALLATION_MANUAL_JA.md)
+
 ## Recommended Environment
 
 利用する推論方式によって、必要なローカルスペックが変わります。
