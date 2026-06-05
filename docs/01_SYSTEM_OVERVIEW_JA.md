@@ -45,6 +45,20 @@ flowchart TD
 - `chronicleTriggered` が立った場合は、LLM に進む前に専用の応答ルートで返します。
 - それ以外は通常の LLM 応答に進み、UI 表示と TTS に流れます。
 
+### MCP 返却データの対応表
+MCP 連携後に Amica 側へ返る主なデータは、次のように役割が分かれています。
+
+| 項目 | 役割 | 入っている主な内容 | 補足 |
+|---|---|---|---|
+| `injectedSystemPrompt` | 最終的な system prompt | ドメインの基本指示、注入ルール、MCP 連携ルール、CHRONICLE 関連ルールなど | ドメインのシステムプロンプト“だけ”ではなく、最終的に組み立てられた system prompt 全体です。 |
+| `injectedUserContext` | 参考コンテキスト | MCP の検索結果、要約、補足情報、外部データの抜粋など | ユーザーの入力文そのものではありません。Amica 側では、会話本文の直前に置かれる参考情報として扱います。 |
+| `metadata` | 状態・識別情報 | `mcpUsed`、`mcpServerId`、`mcpToolName`、`chronicleTriggered` など | 本文ではなく、どの経路が使われたかを示すフラグや ID 情報です。 |
+
+この対応表の見方は次のとおりです。
+- `injectedSystemPrompt` は「どう応答するか」を決める制御文です。
+- `injectedUserContext` は「何を根拠に応答するか」を補助する材料です。
+- `metadata` は「どの仕組みが動いたか」を判定するための情報です。
+
 主な特徴:
 - 会話 UI と管理 UI を分離した fail-open 構成
 - ドメインごとに知識、外部連携、見た目、音声設定を切り替え可能
