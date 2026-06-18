@@ -103,6 +103,8 @@ services:
       INJECTION_SESSION_SECRET: ${INJECTION_SESSION_SECRET:-}
       INJECTION_AMICA_URL: http://amica:3000
       INJECTION_STYLEBERTVITS2_URL: http://sbv2:5000
+      # ガイドPPTX取込でスライド全体を画像化する際に使うPDF変換サービス
+      GOTENBERG_URL: ${GOTENBERG_URL:-http://gotenberg:3000}
       INJECTION_OLLAMA_URL: ${INJECTION_OLLAMA_URL:-http://host.docker.internal:11434}
       INJECTION_OPENAI_BASE_URL: ${AMICA_OPENAI_URL:-https://api.openai.com}
       INJECTION_OPENAI_API_KEY: ${AMICA_OPENAI_APIKEY:-}
@@ -320,6 +322,21 @@ services:
       - 0.0.0.0
       - --port
       - "8000"
+    networks:
+      - ark-network
+
+  # PowerPoint(.pptx)などをLibreOffice経由でPDFへ変換する内部サービス。
+  # injection-tool のガイドPPTX取込（スライド全体の画像化）で使用する。
+  gotenberg:
+    container_name: ark-gotenberg
+    image: gotenberg/gotenberg:8
+    restart: unless-stopped
+    command:
+      - gotenberg
+      - --api-timeout=120s
+    # ホストへは公開せず、ark-network 内部からのみアクセスする。
+    expose:
+      - "3000"
     networks:
       - ark-network
 
